@@ -4,6 +4,7 @@ class matriks {
     final int maxB = 100;
     final int maxK = 100;
     int NeffB, NeffK;
+    float det;
     float[][] Mat = new float[maxB][maxK];
     matriks(){
         int i,j;
@@ -68,6 +69,7 @@ class matriks {
     boolean isZero(int B, int K){
         return (this.Mat[B][K] == 0);
     }
+
     void sortObe(){
         int N = this.NeffB;
         int M = this.NeffK;
@@ -130,29 +132,28 @@ class matriks {
             };
         };
     }
-    // void inversOf(matriks Min){
-    //     int N = Min.NeffB;
-    //     int M = Min.NeffK;
-    //     this.NeffB = N;
-    //     this.NeffK = 2 * M;
-    //     for (int i= 0; i < N; i++){
-    //         for (int j = 0; j < M; j ++) this.Mat[i][j] = Min.Mat[i][j];
-    //         for (int j = M; j < 2 * M; j++) {
-    //             if (i == j - M) this.Mat[i][j] = 1;
-    //             else this.Mat[i][j] = 0;
-    //         };
-    //     };
-    //     this.eliminasiGaussJordan();
-    //     for (int i = 0; i < N-1; i ++){
-    //         Min.kurangBarisNKali(i, N-1, this.Mat[i][M-1]);
-    //         System.out.println(this.Mat[N-1][M-1]);
-    //     }
-    //     // Min.displayMatriks();
-    //     for (int i = 0; i < N; i++){
-    //         for(int j = 0; j < M; j++) this.Mat[i][j] = Min.Mat[i][j+M];
-    //         for (int j = M; j < 2 * M; j++) this.Mat[i][j] = 0;
-    //     }
-
-        
-    // }
+    void gaussJordanInversOf(matriks Min){
+        //menghitung inverse matrix dengan metode gaus jordan
+        //prekondisi ukuran (N x N), NeffK < maxK dan mempunyai invers
+        int N = Min.NeffB;
+        int M = Min.NeffK;
+        this.NeffB = N;
+        this.NeffK = 2 * M;
+        for (int i= 0; i < N; i++){
+            for (int j = 0; j < M; j ++) this.Mat[i][j] = Min.Mat[i][j];
+            for (int j = M; j < 2 * M; j++) {
+                if (i == j - M) this.Mat[i][j] = 1;
+                else this.Mat[i][j] = 0;
+            };
+        };
+        this.eliminasiGaussJordan();
+        //menukar matriks identitas ke belakang
+        for (int i = 0; i < N; i++){
+            for(int j = 0; j < M; j++) {
+                this.Mat[i][j] = this.Mat[i][j+M];
+            }
+            for (int j = M; j < 2 * M; j++) this.Mat[i][j] = 0;
+        }
+        this.NeffK = M; 
+    }
 }
