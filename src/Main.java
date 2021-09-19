@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static Scanner scanner;
+    public static Scanner scanner;
 
-    private static boolean validChoice(String choice, int max) {
+    public static boolean validChoice(String choice, int max) {
         int intChoice;
         try {
             intChoice = Integer.parseInt(choice);
@@ -32,6 +32,20 @@ public class Main {
             choice = scanner.next();
         }
         return Integer.parseInt(choice);
+    }
+
+    public static int inputData() {
+        int inputType;
+        String[] inputTypeMenu = {
+                "1. Input data from keyboard",
+                "2. Input data from file"
+        };
+        inputType = buildMenu(inputTypeMenu, "Input Type", 2);
+        return inputType;
+    }
+
+    public static float fixFloatingPoint(float number) {
+        return (Math.abs(Math.round(number) - number)) < 1.0e-6 ? Math.round(number) : number;
     }
 
     public static void main(String[] args) {
@@ -96,6 +110,9 @@ public class Main {
         };
 
         choice = buildMenu(determinantMenu, "Determinan", 2);
+        if (choice == 1) {
+            Determinant.gaussianDet();
+        }
         ReturnMenu();
     }
 
