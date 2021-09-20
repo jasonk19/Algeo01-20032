@@ -249,7 +249,7 @@ class matriks {
                 for(int k =0; k < M; k++)
                     Mout.Mat[i][j] += this.Mat[i][k] * Min.Mat[k][j];
         Mout.NeffB = N;
-        Mout.NeffK = M;
+        Mout.NeffK = O;
         return Mout;
     }
 }
