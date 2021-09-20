@@ -134,6 +134,24 @@ class matriks {
         // for (int i = 0; i < N ; i++) System.out.println(index0baris[i] +"");
     }
 
+    void copyMatriksToThis(matriks newMat) {
+        for (int i=0; i < this.NeffB; i++) {
+            for (int j=0; j < this.NeffK; j++) {
+                this.Mat[i][j] = newMat.Mat[i][j];
+            }
+        }
+    }
+
+    void transpose() {
+        for (int i=0; i < this.NeffB; i++) {
+            for (int j=i; j < this.NeffK; j++) {
+                float temp = this.Mat[i][j];
+                this.Mat[i][j] = this.Mat[j][i];
+                this.Mat[j][i] = temp;
+            }
+        }
+    }
+
     void eliminasiGauss() {
         int N = this.NeffB;
         int M = this.NeffK;
@@ -167,12 +185,8 @@ class matriks {
                     this.kurangBarisNKali(i, temp, this.Mat[i][j]);
                     temp += 1;
                 }
-                ;
-
             }
-            ;
         }
-        ;
     }
 
     void gaussJordanInversOf(matriks Min) {
@@ -188,9 +202,9 @@ class matriks {
                 if (i == j - M) this.Mat[i][j] = 1;
                 else this.Mat[i][j] = 0;
             }
-            ;
+
         }
-        ;
+
         this.eliminasiGaussJordan();
         //menukar matriks identitas ke belakang
         for (int i = 0; i < N; i++) {
@@ -200,5 +214,70 @@ class matriks {
             for (int j = M; j < 2 * M; j++) this.Mat[i][j] = 0;
         }
         this.NeffK = M;
+    }
+
+    void getCofactor(matriks temp, int p, int q, int n) {
+        int i = 0;
+        int j = 0;
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                if (row != p && col != q) {
+                    temp.Mat[i][j++] = this.Mat[row][col];
+                    if (j == n - 1) {
+                        j = 0;
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+
+    float determinantRecc(matriks mat, int currentRow) {
+        float det = 0;
+
+        if (currentRow == 2) {
+            return mat.Mat[0][0] * mat.Mat[1][1] - mat.Mat[1][0] * mat.Mat[0][1];
+        }
+
+        matriks temp = new matriks();
+        temp.NeffB = currentRow - 1;
+        temp.NeffK = currentRow - 1;
+
+        for (int i = 0; i < currentRow; i++) {
+            this.getCofactor(temp, 0, i, currentRow);
+            det += Math.pow(-1, i) * mat.Mat[0][i] * determinantRecc(temp, currentRow - 1);
+        }
+        return det;
+    }
+
+    void matrixCofactor() {
+        matriks newMat = new matriks();
+        newMat.NeffB = this.NeffB;
+        newMat.NeffK = this.NeffK;
+
+        matriks temp = new matriks();
+        temp.NeffB = this.NeffB - 1;
+        temp.NeffK = this.NeffK - 1;
+
+        for (int i=0; i < this.NeffB; i++) {
+            for (int j=0; j < this.NeffK; j++) {
+                this.getCofactor(temp, i, j, this.NeffB);
+                newMat.Mat[i][j] = (float) (Math.pow(-1, i + j) * temp.determinantRecc(temp, temp.NeffB));
+            }
+        }
+        copyMatriksToThis(newMat);
+    }
+
+    void adjoinCofactor() {
+        this.matrixCofactor();
+        this.transpose();
+    }
+
+    void cofactorMinorInvers() {
+        float det = this.determinantRecc(this, this.NeffB);
+        this.adjoinCofactor();
+        for (int i=0; i < this.NeffK; i++) {
+            this.Mat[i] = BarisdiKali(i, 1/det);
+        }
     }
 }

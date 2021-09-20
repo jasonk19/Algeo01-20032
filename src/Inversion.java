@@ -1,6 +1,6 @@
-public class Determinant {
+public class Inversion {
 
-    public static void gaussianDet() {
+    public static void gaussianInversion() {
         int type = Main.inputData();
         matriks matriks = new matriks();
 
@@ -10,17 +10,11 @@ public class Determinant {
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
         }
-        matriks.eliminasiGauss();
-
-        for (int i = 0; i < matriks.NeffB; i++) {
-            matriks.det *= matriks.Mat[i][i];
-        }
-
-        System.out.println();
-        System.out.println("Determinant = " + Main.fixFloatingPoint(matriks.det));
+        matriks.gaussJordanInversOf(matriks);
+        matriks.displayMatriks();
     }
 
-    public static void cofactorMinorDet() {
+    public static void cofactorMinorInversion() {
         int type = Main.inputData();
         matriks matriks = new matriks();
 
@@ -30,9 +24,7 @@ public class Determinant {
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
         }
-        float det = matriks.determinantRecc(matriks, matriks.NeffB);
-
-        System.out.println();
-        System.out.println("Determinant = " + Main.fixFloatingPoint(det));
+        matriks.cofactorMinorInvers();
+        matriks.displayMatriks();
     }
 }

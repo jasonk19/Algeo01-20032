@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -37,11 +38,33 @@ public class Main {
     public static int inputData() {
         int inputType;
         String[] inputTypeMenu = {
-                "1. Input data from keyboard",
-                "2. Input data from file"
+                "1. Input data dari keyboard",
+                "2. Input data dari file"
         };
         inputType = buildMenu(inputTypeMenu, "Input Type", 2);
         return inputType;
+    }
+
+    public static int inputBarisNKolom() {
+        System.out.print("Masukkan jumlah baris dan kolom: ");
+        String input = scanner.next();
+        while (!Main.validChoice(input, 100)) {
+            System.out.println("Masukkan jumlah yang benar");
+            System.out.print("Masukkan jumlah baris dan kolom: ");
+            input = Main.scanner.next();
+        }
+        return Integer.parseInt(input);
+    }
+
+    public static String inputDariFile() {
+        System.out.print("Masukkan nama file: ");
+        String filename = Main.scanner.next();
+        while (!(new File("../test/" + filename)).exists()) {
+            System.out.println("File not found! Enter the correct name");
+            System.out.print("Masukkan nama file: ");
+            filename = Main.scanner.next();
+        }
+        return filename;
     }
 
     public static float fixFloatingPoint(float number) {
@@ -112,6 +135,8 @@ public class Main {
         choice = buildMenu(determinantMenu, "Determinan", 2);
         if (choice == 1) {
             Determinant.gaussianDet();
+        } else if (choice == 2) {
+            Determinant.cofactorMinorDet();
         }
         ReturnMenu();
     }
@@ -124,6 +149,11 @@ public class Main {
         };
 
         choice = buildMenu(inverseMatrixMenu, "Matriks balikan", 2);
+        if (choice == 1) {
+            Inversion.cofactorMinorInversion();
+        } else if (choice == 2) {
+            Inversion.gaussianInversion();
+        }
         ReturnMenu();
     }
 
