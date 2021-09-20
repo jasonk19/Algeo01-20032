@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 class matriks {
     final int maxB = 100;
@@ -276,8 +277,59 @@ class matriks {
     void cofactorMinorInvers() {
         float det = this.determinantRecc(this, this.NeffB);
         this.adjoinCofactor();
-        for (int i=0; i < this.NeffK; i++) {
-            this.Mat[i] = BarisdiKali(i, 1/det);
+        for (int i = 0; i < this.NeffK; i++) {
+            this.Mat[i] = BarisdiKali(i, 1 / det);
         }
+    }
+
+    matriks cofactor(int B, int K){
+        int N = this.NeffB;
+        matriks cof = new matriks();
+        int idxBcof = 0;
+        for (int i = 0; i < N; i++){
+            int idxKcof = 0;
+            for (int j = 0; j<N; j++){
+                if (i != B && j != K) {
+                    cof.Mat[idxBcof][idxKcof] = this.Mat[i][j];
+                    idxKcof++;
+                }
+            }
+            if (i != B) idxBcof++;
+        }
+        cof.NeffB = this.NeffB - 1;
+        cof.NeffK = this.NeffK - 1;
+        // System.out.println("=======================");
+        // cof.displayMatriks();
+        // System.out.println("=======================");
+
+        return cof;
+    }
+    float determinan(){
+        //menghitung determinan dengan ekspansi kofaktor
+        //matriks harus berukuran (N x N)
+        float det = 0;
+        int N = this.NeffB;
+        if (N == 2){                    //basis
+            det += this.Mat[0][0] * this.Mat[1][1] - this.Mat[0][1] * this.Mat[1][0];
+        }   
+        else{                           //rekursif
+            for (int i = 0; i < N; i++ ) det += Math.pow(-1, i)*this.Mat[0][i]*this.cofactor(0, i).determinan();
+        }
+        return det;
+    }
+    matriks multiplyByMatrix(matriks Min){
+        //prekondisi jumlah kolom object = jumlah baris M
+        int N = this.NeffB;
+        int M = this.NeffK;
+        int O = Min.NeffK;
+        matriks Mout = new matriks();
+        // System.out.println(N+" "+M+" "+O);
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < O; j++)
+                for(int k =0; k < M; k++)
+                    Mout.Mat[i][j] += this.Mat[i][k] * Min.Mat[k][j];
+        Mout.NeffB = N;
+        Mout.NeffK = O;
+        return Mout;
     }
 }
