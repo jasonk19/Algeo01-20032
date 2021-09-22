@@ -26,7 +26,16 @@ class matriks {
         this.NeffB = N;
         this.NeffK = M;
     }
+    int firstNonZero(int N){
+        int M = this.NeffK;
+        int idx = 0;
+        while (this.Mat[N][idx] == 0 && idx < M) {
+            idx++;
+        };
+        // System.out.println(this.Mat[N][idx]);
+        return idx;
 
+    }
     void readMatriks(String filename) {
         try {
             String line;
@@ -59,7 +68,24 @@ class matriks {
             System.out.print("|\n");
         }
     }
+    matriks swapKolomFunc(int K1, int K2) {
+        matriks mOut = new matriks();
+        int N = this.NeffB;
+        int M = this.NeffK;
+        for (int i = 0; i < N; i++){
+            for (int j = 0; j < M; j++){
+                if (j == K1){
+                    mOut.Mat[i][j] = this.Mat[i][K2];
+                } else {
+                    mOut.Mat[i][j] = this.Mat[i][j];
+                }
+            }
+        }
+        mOut.NeffB = N;
+        mOut.NeffK = M;
+        return mOut;
 
+    }
     void swapBaris(int B1, int B2) {
         int M = this.NeffK;
         float temp;
@@ -176,16 +202,8 @@ class matriks {
         int N = this.NeffB;
         int M = this.NeffK;
         for (int i = 0; i < N - 1; i++) {
-            int idx = 0;
-            //mencari element bukan 0 pertama pada baris
-            while (isZero(i, idx) && idx < M) idx++;
-            int temp = i + 1;
-            //membuat element setelah element bukan 0 pertama pada baris bernilai 0;
-            for (int j = idx + 1; j < M - 1; j++) {
-                while (!(isZero(i, j)) && temp < N) {
-                    this.kurangBarisNKali(i, temp, this.Mat[i][j]);
-                    temp += 1;
-                }
+            for (int j = i + 1; j < N; j++){
+                this.kurangBarisNKali(i, j, this.Mat[i][this.firstNonZero(j)]);
             }
         }
     }

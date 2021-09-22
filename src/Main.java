@@ -68,7 +68,7 @@ public class Main {
     }
 
     public static float fixFloatingPoint(float number) {
-        return (Math.abs(Math.round(number) - number)) < 1.0e-6 ? Math.round(number) : number;
+        return (Math.abs(Math.round(number) - number)) < 1.0e-4 ? Math.round(number) : number;
     }
 
     public static void main(String[] args) {
@@ -122,6 +122,17 @@ public class Main {
         };
 
         choice = buildMenu(splMenu, "Sistem Persamaan Linear", 4);
+        if (choice == 1){
+            solver.gaussSolver();
+        } else if (choice == 2)
+        {
+            solver.gaussJordanSolver();
+        } else if (choice == 3)
+        {
+            solver.inversSolver();
+        } else if (choice == 4){
+            solver.determSolver();
+        }
         ReturnMenu();
     }
 
@@ -180,5 +191,13 @@ public class Main {
         System.out.println("Terimasih sudah menggunakan aplikasi kami!");
         scanner.close();
         System.exit(0);
+    }
+    public static boolean isNumber(String str) { 
+        try {  
+            Float.parseFloat(str);  
+            return true;
+        } catch(NumberFormatException e){  
+            return false;  
+        }  
     }
 }
