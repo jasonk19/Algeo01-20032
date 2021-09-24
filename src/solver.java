@@ -188,6 +188,9 @@ class solver{
         Interpolation interpolasi = new Interpolation();
 
         matriks titik = interpolasi.readTitikIntepolation();
+        float x = interpolasi.readxTaksiran();
         interpolasi.convertToMatAug(titik);
+
+        interpolasi.displayInterpolasi(titik, x);
     }
 }

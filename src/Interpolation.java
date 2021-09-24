@@ -21,12 +21,9 @@ public class Interpolation {
     x = Main.scanner.nextFloat();
     return x;
   }
-
-  // void displayTitik(matriks titik) {
-  //   titik.displayMatriks();
-  // }
  
   void convertToMatAug(matriks titik) {
+
     titik.NeffK = titik.NeffK+2;
 
     float[] x = new float[titik.NeffB];
@@ -60,27 +57,27 @@ public class Interpolation {
     titik.displayMatriks();
   }
 
-  void displayInterpolasi(matriks matAug, float x) {
+  void displayInterpolasi(matriks titik, float x) {
     int i,j;
     // display matriks augmented dari titik
-    for (i = 0; i < matAug.NeffB; i++) {
-      for (j = 0; j < matAug.NeffK; j++) {
+    for (i = 0; i < titik.NeffB; i++) {
+      for (j = 0; j < titik.NeffK; j++) {
         if (j == 0) {
           System.out.print("a0");
           System.out.print(" + ");
         }
         if (j == 1) {
-          System.out.print(matAug.Mat[i][j]);
+          System.out.print(titik.Mat[i][j]);
           System.out.print("a1");
           System.out.print(" + ");
         }
         if(j == 2) {
-          System.out.print(matAug.Mat[i][j]);
+          System.out.print(titik.Mat[i][j]);
           System.out.print("a2");
           System.out.print(" = ");
         }
         if (j == 3) {
-          System.out.print(matAug.Mat[i][j]);
+          System.out.print(titik.Mat[i][j]);
         }
       }
       System.out.println();
