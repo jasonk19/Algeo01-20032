@@ -26,8 +26,38 @@ public class Interpolation {
   //   titik.displayMatriks();
   // }
  
-  matriks convertToMatAug() {
-    // convert dari titik ke matriks augmented
+  void convertToMatAug(matriks titik) {
+    titik.NeffK = titik.NeffK+2;
+
+    float[] x = new float[titik.NeffB];
+    float[] y = new float[titik.NeffB];
+    float[] xKuadrat = new float[titik.NeffB];
+
+    int i,j;
+    for (i = 0; i < titik.NeffB; i++) {
+      x[i] = titik.Mat[i][0];
+      y[i] = titik.Mat[i][1];
+      xKuadrat[i] = titik.Mat[i][0] * titik.Mat[i][0];
+    }
+
+    for (i = 0; i < titik.NeffB; i++) {
+      for (j = 0; j < titik.NeffK; j++) {
+        if (j == 0) {
+          titik.Mat[i][j] = 1;
+        }
+        if (j == 1) {
+          titik.Mat[i][j] = x[i];
+        }
+        if (j == 2) {
+          titik.Mat[i][j] = xKuadrat[i];
+        }
+        if (j == 3) {
+          titik.Mat[i][j] = y[i];
+        }
+      }
+    }
+
+    titik.displayMatriks();
   }
 
   void displayInterpolasi(matriks matAug, float x) {

@@ -182,4 +182,12 @@ class solver{
 
         }
     }
+
+    // Masih testing interpolasi
+    public static void interpolasiSolver() {
+        Interpolation interpolasi = new Interpolation();
+
+        matriks titik = interpolasi.readTitikIntepolation();
+        interpolasi.convertToMatAug(titik);
+    }
 }

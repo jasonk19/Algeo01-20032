@@ -168,7 +168,9 @@ public class Main {
         ReturnMenu();
     }
 
+    // Masih testing interpolasi
     private static void InterpolationMenu() {
+        solver.interpolasiSolver();
         ReturnMenu();
     }
 
