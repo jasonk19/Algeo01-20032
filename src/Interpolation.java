@@ -27,16 +27,7 @@ public class Interpolation {
   // }
  
   matriks convertToMatAug() {
-    matriks matAug = new matriks();
-
-    int i,j;
-    for (i = 0; i < 4; i++) {
-      for (j = 0; j < 4; j++) {
-        matAug.Mat[i][j] = 1;
-      }
-    }
-
-    return matAug;
+    // convert dari titik ke matriks augmented
   }
 
   void displayInterpolasi(matriks matAug, float x) {
