@@ -1,5 +1,8 @@
-public class Interpolation {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
+public class Interpolation {
 
   matriks readTitikIntepolation() {
     matriks titik = new matriks();
@@ -13,6 +16,32 @@ public class Interpolation {
 
     return titik;
 
+  }
+
+  // Masih belum coba, baru implementation sama kayak yang di matriks.java
+  void readFileTitikInterpolation(String filename) {
+    matriks titik = new matriks();
+
+    try {
+      String line;
+      BufferedReader reader = new BufferedReader(new FileReader("../test/" + filename));
+
+      int i,j;
+      i = 0;
+      while ((line = reader.readLine()) != null) {
+        j = 0;
+        for (String value : line.split("")) {
+          titik.Mat[i][j] = Float.parseFloat(value);
+          j++;
+        }
+        i++;
+        titik.NeffK = j;
+      }
+      titik.NeffB = i;
+      reader.close();
+    } catch (IOException e) {
+      System.out.println("An error occured," + e.getMessage());
+    }
   }
 
   float readxTaksiran() {
@@ -89,7 +118,6 @@ public class Interpolation {
     System.out.print(x);
     System.out.println(" adalah: ");
   }
-
 
 
 }
