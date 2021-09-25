@@ -192,5 +192,7 @@ class solver{
         interpolasi.convertToMatAug(titik);
 
         interpolasi.displayInterpolasi(titik, x);
+
+        interpolasi.interpolasiPolinom(titik, x);
     }
 }

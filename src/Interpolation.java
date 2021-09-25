@@ -116,8 +116,39 @@ public class Interpolation {
 
     System.out.print("Hasil taksiran dari nilai x = ");
     System.out.print(x);
-    System.out.println(" adalah: ");
+    System.out.print(" adalah: ");
   }
 
+  void interpolasiPolinom(matriks titik, float x) {
+    titik.eliminasiGauss();
+
+    int i,j;
+    float[] sol = new float[titik.NeffB];
+
+    for (i = titik.NeffB-1; i >= 0; i--) {
+      if (i == titik.NeffB-1) {
+        sol[i] = titik.Mat[i][titik.NeffK-1];
+      } else {
+        float tempA = 0;
+        for (j = 0; j < titik.NeffK-1; j++) {
+          if (titik.Mat[i][j] != 0 || titik.Mat[i][j] != 1) {
+            tempA += titik.Mat[i][j] * sol[j];
+          }
+        }
+        sol[i] = titik.Mat[i][titik.NeffK-1] - tempA;
+      }
+    }
+    
+    float hasilInterpolasi = 0;
+    for (i = 0; i < titik.NeffB; i++) {
+      if (i == 0) {
+        hasilInterpolasi += sol[i];
+      } else {
+        hasilInterpolasi += sol[i] * Math.pow((double) x, (double) i);
+      }
+    }
+
+    System.out.println(hasilInterpolasi);
+  }
 
 }
