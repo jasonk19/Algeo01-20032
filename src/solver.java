@@ -185,14 +185,17 @@ class solver{
 
     // Masih testing interpolasi
     public static void interpolasiSolver() {
+        // Inisiasi interpolasi
         Interpolation interpolasi = new Interpolation();
-
+        
+        // Input titik interpolasi
         matriks titik = interpolasi.readTitikIntepolation();
+        // Input x taksiran
         float x = interpolasi.readxTaksiran();
+        
+        // Proses Interpolasi Polinom
         interpolasi.convertToMatAug(titik);
-
         interpolasi.displayInterpolasi(titik, x);
-
         interpolasi.interpolasiPolinom(titik, x);
     }
 }
