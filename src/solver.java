@@ -185,20 +185,25 @@ class solver{
 
     // Masih testing interpolasi
     public static void interpolasiSolver() {
-        // Inisiasi interpolasi
+        int type = Main.inputData();
+        // Inisialisasi Interpolasi
         Interpolation interpolasi = new Interpolation();
-        
+        matriks titik = new matriks();
+        if (type == 1) {
+            titik = interpolasi.readTitikIntepolation();
+        } else if (type == 2) {
+            titik = interpolasi.readFileTitikInterpolation(Main.inputDariFile());
+        }
+
         // Input titik interpolasi dan ubah ke Matriks Augmented
-        matriks titik = interpolasi.readTitikIntepolation();
         interpolasi.convertToMatAug(titik);
         interpolasi.displayInterpolasi(titik);
         // Input x taksiran
         float x;
-        x = interpolasi.readxTaksiran();
-        while (x != -999) {
-            interpolasi.interpolasiPolinom(titik, x);    
-            System.out.println();
+        do {
             x = interpolasi.readxTaksiran();
-        }
+            interpolasi.interpolasiPolinom(titik, x);
+            System.out.println();
+        } while( x != -999);
     }
 }

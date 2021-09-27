@@ -15,33 +15,14 @@ public class Interpolation {
     titik.readMatriks(N,2);
 
     return titik;
-
   }
 
   // Masih belum coba, baru implementation sama kayak yang di matriks.java
-  void readFileTitikInterpolation(String filename) {
+  matriks readFileTitikInterpolation(String filename) {
     matriks titik = new matriks();
+    titik.readMatriks(filename);
 
-    try {
-      String line;
-      BufferedReader reader = new BufferedReader(new FileReader("../test/" + filename));
-
-      int i,j;
-      i = 0;
-      while ((line = reader.readLine()) != null) {
-        j = 0;
-        for (String value : line.split("")) {
-          titik.Mat[i][j] = Float.parseFloat(value);
-          j++;
-        }
-        i++;
-        titik.NeffK = j;
-      }
-      titik.NeffB = i;
-      reader.close();
-    } catch (IOException e) {
-      System.out.println("An error occured," + e.getMessage());
-    }
+    return titik;
   }
 
   float readxTaksiran() {
