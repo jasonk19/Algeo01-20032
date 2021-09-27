@@ -188,14 +188,17 @@ class solver{
         // Inisiasi interpolasi
         Interpolation interpolasi = new Interpolation();
         
-        // Input titik interpolasi
+        // Input titik interpolasi dan ubah ke Matriks Augmented
         matriks titik = interpolasi.readTitikIntepolation();
-        // Input x taksiran
-        float x = interpolasi.readxTaksiran();
-        
-        // Proses Interpolasi Polinom
         interpolasi.convertToMatAug(titik);
-        interpolasi.displayInterpolasi(titik, x);
-        interpolasi.interpolasiPolinom(titik, x);
+        interpolasi.displayInterpolasi(titik);
+        // Input x taksiran
+        float x;
+        x = interpolasi.readxTaksiran();
+        while (x != -999) {
+            interpolasi.interpolasiPolinom(titik, x);    
+            System.out.println();
+            x = interpolasi.readxTaksiran();
+        }
     }
 }

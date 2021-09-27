@@ -46,7 +46,7 @@ public class Interpolation {
 
   float readxTaksiran() {
     float x;
-    System.out.println("Masukkan nilai x yang akan ditaksir: ");
+    System.out.println("Masukkan nilai x yang akan ditaksir[input -999 untuk berhenti]: ");
     x = Main.scanner.nextFloat();
     return x;
   }
@@ -79,7 +79,7 @@ public class Interpolation {
     System.out.println();
   }
 
-  void displayInterpolasi(matriks titik, float x) {
+  void displayInterpolasi(matriks titik) {
     int i,j;
 
     System.out.println("System persamaan lanjar yang terbentuk: ");
@@ -113,10 +113,6 @@ public class Interpolation {
     }
 
     System.out.println();
-
-    System.out.print("Hasil taksiran dari nilai x = ");
-    System.out.print(x);
-    System.out.print(" adalah: ");
   }
 
   void interpolasiPolinom(matriks titik, float x) {
@@ -147,6 +143,10 @@ public class Interpolation {
         hasilInterpolasi += sol[i] * Math.pow((double) x, (double) i);
       }
     }
+
+    System.out.print("Hasil taksiran dari nilai x = ");
+    System.out.print(x);
+    System.out.print(" adalah: ");
 
     System.out.println(hasilInterpolasi);
   }
