@@ -56,6 +56,31 @@ public class Main {
         return Integer.parseInt(input);
     }
 
+    public static int[] inputDataRegression() {
+        int[] colNRow = {0, 0};
+
+        System.out.print("Masukkan jumlah peubah (x): ");
+        String kolom = scanner.next();
+        while (!Main.validChoice(kolom, 100)) {
+            System.out.println("Masukkan jumlah yang benar");
+            System.out.print("Masukkan jumlah peubah (x): ");
+            kolom = Main.scanner.next();
+        }
+
+        System.out.println("Masukkan jumlah data (x): ");
+        String baris = scanner.next();
+        while (!Main.validChoice(baris, 100)) {
+            System.out.println("Masukkan jumlah yang benar");
+            System.out.print("Masukkan jumlah peubah (x): ");
+            baris = Main.scanner.next();
+        }
+
+        colNRow[0] = Integer.parseInt(baris);
+        colNRow[1] = Integer.parseInt(kolom);
+
+        return colNRow;
+    }
+
     public static String inputDariFile() {
         System.out.print("Masukkan nama file: ");
         String filename = Main.scanner.next();
@@ -175,6 +200,7 @@ public class Main {
     }
 
     private static void LinearRegressionMenu() {
+        Regression.LinearRegression();
         ReturnMenu();
     }
 
