@@ -11,6 +11,14 @@ public class Regression {
             matriks.readMatriks(Main.inputDariFile());
         }
 
+        System.out.println();
+        System.out.println("Nilai yang ingin ditaksir");
+        float[] peubah = new float[matriks.NeffK - 1];
+        for (int i=0; i < matriks.NeffK - 1; i++) {
+            System.out.print("Masukkan nilai peubah x" + (i + 1) + ": ");
+            peubah[i] = Main.scanner.nextFloat();
+        }
+
         matriks regMatrix = new matriks();
         regMatrix.NeffK = matriks.NeffK + 1;
         regMatrix.NeffB = matriks.NeffK;
@@ -35,7 +43,14 @@ public class Regression {
                 }
             }
         }
+        regMatrix.eliminasiGaussJordan();
 
-//        regMatrix.eliminasiGaussJordan();
+        float taksiran = regMatrix.Mat[0][regMatrix.NeffK-1];
+        for (int i=1; i < regMatrix.NeffK - 1; i++) {
+            taksiran += regMatrix.Mat[i][regMatrix.NeffK-1] * peubah[i-1];
+        }
+
+        System.out.println();
+        System.out.println("Hasil taksiran menggunakan regresi linear berganda adalah " + taksiran);
     }
 }
