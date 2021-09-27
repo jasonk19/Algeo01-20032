@@ -67,11 +67,11 @@ public class Main {
             kolom = Main.scanner.next();
         }
 
-        System.out.println("Masukkan jumlah data (x): ");
+        System.out.print("Masukkan jumlah data: ");
         String baris = scanner.next();
         while (!Main.validChoice(baris, 100)) {
             System.out.println("Masukkan jumlah yang benar");
-            System.out.print("Masukkan jumlah peubah (x): ");
+            System.out.print("Masukkan jumlah data: ");
             baris = Main.scanner.next();
         }
 
