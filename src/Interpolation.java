@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Interpolation {
 
   matriks readTitikInterpolation() {
@@ -23,7 +26,6 @@ public class Interpolation {
 
   float readxTaksiran() {
     float x;
-    System.out.println("Masukkan nilai x yang akan ditaksir[input -999 untuk berhenti]: ");
     x = Main.scanner.nextFloat();
     return x;
   }
@@ -92,7 +94,61 @@ public class Interpolation {
     System.out.println();
   }
 
-  void interpolasiPolinom(matriks titik, float x) {
+  void displayInterpolasiToFile(matriks titik, int count, Float[] bilX, Float[] y, String namaFile) {
+    String line;
+
+    try {
+      String newFileDir = "./hasil/" + namaFile;
+      FileWriter writeInterpolasi = new FileWriter(newFileDir);
+
+      int i,j;
+
+      String persamaanPolinom = "Persamaan Polinom: \n";
+      if (titik.NeffB == 1) {
+        persamaanPolinom += "a0";
+        persamaanPolinom += " = ";
+        persamaanPolinom += Float.toString(titik.Mat[0][1]);
+      } else {
+        for (i = 0; i < titik.NeffB; i++) {
+          for (j = 0; j < titik.NeffK; j++) {
+            if (j == 0) {
+              persamaanPolinom += "a0";
+              persamaanPolinom += " + ";
+            } else if (j == titik.NeffK-2) {
+              persamaanPolinom += Float.toString(titik.Mat[i][j]);
+              persamaanPolinom += "a";
+              persamaanPolinom += Integer.toString(j);
+              persamaanPolinom += " = ";
+            } else if (j == titik.NeffK-1) {
+              persamaanPolinom += Float.toString(titik.Mat[i][j]);
+            } else {
+              persamaanPolinom += Float.toString(titik.Mat[i][j]);
+              persamaanPolinom += "a";
+              persamaanPolinom += Integer.toString(j);
+              persamaanPolinom += " + ";
+            }
+          }
+          persamaanPolinom += "\n";
+        }
+      }
+      line = persamaanPolinom + "\nHasil interpolasi dari nilai: \n";
+      for (i = 0; i < count; i++) {
+        line += (i+1) + ". x = " + bilX[i] + "\n";
+      }
+      line += "adalah: \n";
+      for (i = 0; i < count; i++) {
+        line += (i+1) + ". f(" + bilX[i] + ") = " + y[i] + "\n";
+      }
+      writeInterpolasi.write(line);
+      writeInterpolasi.close();
+      System.out.println("Berhasil menyimpan hasil Interpolasi pada folder hasil, file \"" + namaFile + "\".");
+    } catch(IOException e) {
+      System.err.println("Error.");
+      e.printStackTrace();
+    }
+  }
+
+  float interpolasiPolinom(matriks titik, float x) {
     titik.eliminasiGauss();
 
     int i,j;
@@ -121,11 +177,7 @@ public class Interpolation {
       }
     }
 
-    System.out.print("Hasil taksiran dari nilai x = ");
-    System.out.print(x);
-    System.out.print(" adalah: ");
-
-    System.out.println(hasilInterpolasi);
+    return hasilInterpolasi;
   }
 
 }

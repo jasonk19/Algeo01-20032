@@ -1,0 +1,8 @@
+Persamaan Polinom: 
+a0 + 8.0a1 + 64.0a2 = 2.0794
+a0 + 1.0a1 + 17.0a2 = 0.1178
+a0 + 0.0a1 + 1.0a2 = -0.0063999495
+
+Hasil interpolasi dari nilai: 
+1. x = 9.2adalah: 
+1. f(9.2) = 2.219224

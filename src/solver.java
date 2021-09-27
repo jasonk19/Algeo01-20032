@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 class solver{
     public static void gaussSolver(){
@@ -199,12 +200,44 @@ class solver{
         interpolasi.convertToMatAug(titik);
         interpolasi.displayInterpolasi(titik);
         // Input x taksiran
-        float x;
-        x = interpolasi.readxTaksiran();
-        while (x != -999) {
-            interpolasi.interpolasiPolinom(titik, x);
-            System.out.println();
+        int i, count;
+        System.out.print("Masukkan banyaknya nilai x yang ingin ditaksir: ");
+        count = Main.scanner.nextInt(); 
+        Float[] y = new Float[count];
+        Float x;
+        Float[] bilX = new Float[count];
+
+        System.out.println("Masukkan nilai x yang akan ditaksir: ");
+        for (i = 0; i < count; i++) {
             x = interpolasi.readxTaksiran();
+            bilX[i] = x;
+            y[i] = interpolasi.interpolasiPolinom(titik, x);
         }
+        System.out.println();
+        System.out.println("Hasil interpolasi dari nilai: ");
+        for (i = 0; i < count; i++) {
+            System.out.print(i+1);
+            System.out.print(". x = ");
+            System.out.println(bilX[i]);
+        }
+        System.out.println("adalah: ");
+        for (i = 0; i < count; i++) {
+            System.out.print(i+1);
+            System.out.print(". f(");
+            System.out.print(bilX[i]);
+            System.out.print(") = ");
+            System.out.println(y[i]);
+        }
+        System.out.println();
+        System.out.print("Simpan Hasil Interpolasi?(y/n) ");
+        char simpan = Main.scanner.next().charAt(0);
+        String namaFile;
+
+        if (simpan == 'y') {
+            System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+            namaFile = Main.scanner.next();
+            interpolasi.displayInterpolasiToFile(titik, count, bilX, y, namaFile);
+        }
+
     }
 }
