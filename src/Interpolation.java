@@ -1,10 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class Interpolation {
 
-  matriks readTitikIntepolation() {
+  matriks readTitikInterpolation() {
     matriks titik = new matriks();
     int N;
 

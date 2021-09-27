@@ -190,7 +190,7 @@ class solver{
         Interpolation interpolasi = new Interpolation();
         matriks titik = new matriks();
         if (type == 1) {
-            titik = interpolasi.readTitikIntepolation();
+            titik = interpolasi.readTitikInterpolation();
         } else if (type == 2) {
             titik = interpolasi.readFileTitikInterpolation(Main.inputDariFile());
         }
@@ -200,10 +200,11 @@ class solver{
         interpolasi.displayInterpolasi(titik);
         // Input x taksiran
         float x;
-        do {
-            x = interpolasi.readxTaksiran();
+        x = interpolasi.readxTaksiran();
+        while (x != -999) {
             interpolasi.interpolasiPolinom(titik, x);
             System.out.println();
-        } while( x != -999);
+            x = interpolasi.readxTaksiran();
+        }
     }
 }
