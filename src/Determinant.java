@@ -38,6 +38,10 @@ public class Determinant {
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
+            if (matriks.NeffB != matriks.NeffK) {
+                System.out.println("Matriks tidak berbentuk persegi, determinan tidak ada!");
+                return;
+            }
         }
         matriks copyMat = new matriks();
         copyMat.copyMatriksToThis(matriks);
@@ -72,6 +76,10 @@ public class Determinant {
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
+            if (matriks.NeffB != matriks.NeffK) {
+                System.out.println("Matriks tidak berbentuk persegi, determinan tidak ada!");
+                return;
+            }
         }
         float det = matriks.determinantRecc(matriks, matriks.NeffB);
 

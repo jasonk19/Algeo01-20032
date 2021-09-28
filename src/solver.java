@@ -1,7 +1,33 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 class solver{
+    private static void saveSPLToFile(matriks matriksSpl, String hasil, String namaFile) {
+        String line = "";
+
+        try {
+            String newFileDir = "./hasil/" + namaFile;
+            FileWriter writeDeterm = new FileWriter(newFileDir);
+
+            String dataMatrix = "SPL dalam bentuk matriks: \n";
+            for (int i=0; i < matriksSpl.NeffB; i++) {
+                for (int j=0; j < matriksSpl.NeffK; j ++) {
+                    dataMatrix += matriksSpl.Mat[i][j] + " | ";
+                }
+                dataMatrix += "\n";
+            }
+
+            line += dataMatrix + "\nHasil sistem persamaan linear adalah\n" + hasil;
+
+            writeDeterm.write(line);
+            writeDeterm.close();
+            System.out.println("Berhasil menyimpan hasil spl pada folder hasil, file \"" + namaFile + "\".");
+        } catch(IOException e) {
+            System.err.println("Error.");
+            e.printStackTrace();
+        }
+    }
+
     public static void gaussSolver(){
         int type = Main.inputData();
         matriks matriks = new matriks();
@@ -12,6 +38,9 @@ class solver{
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
         }
+        matriks copyMat = new matriks();
+        copyMat.copyMatriksToThis(matriks);
+
         int N = matriks.NeffB;
         int M = matriks.NeffK;
         String[][] sol = new String[M-1][2];
@@ -31,7 +60,7 @@ class solver{
                     float fix = Main.fixFloatingPoint(matriks.Mat[i][j]);
                     if (fix > 0 && fix != 1)
                         hasilS += " -" +fix+"*x" + (j+1);
-                    else if(fix > 0 && fix == 1)
+                    else if(fix == 1)
                         hasilS += " -x" + (j+1);
                     else if(fix < 0 && fix != 1)
                         hasilS += "+ " +fix+"*x" + (j+1);
@@ -40,11 +69,11 @@ class solver{
                     else 
                         hasilS = hasilS;
                 }
-                if (sol[j][1] != null && sol[j][1] != ""){
+                if (sol[j][1] != null && !sol[j][1].equals("")){
                     float fix = Main.fixFloatingPoint(matriks.Mat[i][j]);
                     if (fix > 0 && fix != 1)
                         hasilS += " -" +fix+"*("+sol[j][1]+ ")";
-                    else if(fix > 0 && fix == 1)
+                    else if(fix == 1)
                         hasilS += " -" + "("+sol[j][1]+ ")";
                     else if(fix < 0 && fix != 1)
                         hasilS += "+ " +fix+"*("+sol[j][1]+ ")";
@@ -56,7 +85,23 @@ class solver{
             sol[idx][0] = Float.toString(hasilF);
             sol[idx][1] = hasilS;
         }
-        for (int i = 0; i < M-1; i++) System.out.println("x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]));
+
+        String line = "";
+        for (int i = 0; i < M-1; i++) {
+            line += "x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]) + "\n";
+            System.out.println("x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]));
+        }
+
+        System.out.println();
+        System.out.print("Simpan Hasil SPL?(y/n) ");
+        char simpan = Main.scanner.next().charAt(0);
+        String namaFile;
+
+        if (simpan == 'y') {
+            System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+            namaFile = Main.scanner.next();
+            saveSPLToFile(copyMat, line, namaFile);
+        }
     }
     public static void gaussJordanSolver(){
         int type = Main.inputData();
@@ -68,6 +113,9 @@ class solver{
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
         }
+        matriks copyMat = new matriks();
+        copyMat.copyMatriksToThis(matriks);
+
         int N = matriks.NeffB;
         int M = matriks.NeffK;
         String[][] sol = new String[M-1][2];
@@ -87,20 +135,20 @@ class solver{
                     float fix = Main.fixFloatingPoint(matriks.Mat[i][j]);
                     if (fix > 0 && fix != 1)
                         hasilS += " -" +fix+"*x" + (j+1);
-                    else if(fix > 0 && fix == 1)
+                    else if(fix == 1)
                         hasilS += " -x" + (j+1);
                     else if(fix < 0 && fix != 1)
                         hasilS += "+ " +fix+"*x" + (j+1);
                     else if(fix < 0 && fix == 1)
                         hasilS += "+ x" + (j+1);
-                    else 
+                    else
                         hasilS = hasilS;
                 }
-                if (sol[j][1] != null && sol[j][1] != ""){
+                if (sol[j][1] != null && !sol[j][1].equals("")){
                     float fix = Main.fixFloatingPoint(matriks.Mat[i][j]);
                     if (fix > 0 && fix != 1)
                         hasilS += " -" +fix+"*("+sol[j][1]+ ")";
-                    else if(fix > 0 && fix == 1)
+                    else if(fix == 1)
                         hasilS += " -" + "("+sol[j][1]+ ")";
                     else if(fix < 0 && fix != 1)
                         hasilS += "+ " +fix+"*("+sol[j][1]+ ")";
@@ -112,7 +160,23 @@ class solver{
             sol[idx][0] = Float.toString(hasilF);
             sol[idx][1] = hasilS;
         }
-        for (int i = 0; i < M-1; i++) System.out.println("x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]));
+
+        String line = "";
+        for (int i = 0; i < M-1; i++) {
+            line += "x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]) + "\n";
+            System.out.println("x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]));
+        }
+
+        System.out.println();
+        System.out.print("Simpan Hasil SPL?(y/n) ");
+        char simpan = Main.scanner.next().charAt(0);
+        String namaFile;
+
+        if (simpan == 'y') {
+            System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+            namaFile = Main.scanner.next();
+            saveSPLToFile(copyMat, line, namaFile);
+        }
     }
     public static void inversSolver(){
         int type = Main.inputData();
@@ -124,12 +188,17 @@ class solver{
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
         }
+        matriks copyMat = new matriks();
+        copyMat.copyMatriksToThis(matriks);
+
         //split daerah variable dgn daerah hasil
         matriks.NeffK -=1;
         matriks matriksHasil = new matriks();
         for (int j = 0; j < matriks.NeffB; j++) matriksHasil.Mat[j][0] = matriks.Mat[j][matriks.NeffK];
         matriksHasil.NeffB = matriks.NeffB;
         matriksHasil.NeffK = 1;
+
+        String line = "";
         if (matriks.NeffB != matriks.NeffK){
             System.out.println("Matriks tidak berbentuk persegi. Tidak dapat diselesaikan dengan metode invers!");
         }
@@ -140,11 +209,24 @@ class solver{
             matriks sol;
             matriks.cofactorMinorInvers();
             sol = matriks.multiplyByMatrix(matriksHasil);
-            for (int i = 0; i < matriksHasil.NeffB; i++)
+            for (int i = 0; i < matriksHasil.NeffB; i++) {
+                line += "x" +(i+1) + " = " + sol.Mat[i][0] + "\n";
                 System.out.println("x" +(i+1) + " = " + sol.Mat[i][0]);
+            }
+
+            System.out.println();
+            System.out.print("Simpan Hasil SPL?(y/n) ");
+            char simpan = Main.scanner.next().charAt(0);
+            String namaFile;
+
+            if (simpan == 'y') {
+                System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+                namaFile = Main.scanner.next();
+                saveSPLToFile(copyMat, line, namaFile);
+            }
         }
-        
     }
+
     public static void determSolver(){
         int type = Main.inputData();
         matriks matriks = new matriks();
@@ -155,12 +237,16 @@ class solver{
         } else if (type == 2) {
             matriks.readMatriks(Main.inputDariFile());
         }
+        matriks copyMat = new matriks();
+        copyMat.copyMatriksToThis(matriks);
         //split daerah variable dgn daerah hasil
         matriks.NeffK -=1;
         matriks matriksHasil = new matriks();
         for (int j = 0; j < matriks.NeffB; j++) matriksHasil.Mat[j][0] = matriks.Mat[j][matriks.NeffK];
         matriksHasil.NeffB = matriks.NeffB;
         matriksHasil.NeffK = 1;
+
+        String line = "";
         if (matriks.NeffB != matriks.NeffK){
             System.out.println("Matriks tidak berbentuk persegi. Tidak dapat diselesaikan dengan metode crammer!");
         }
@@ -178,9 +264,21 @@ class solver{
             }
             float[] sol = new float[matriks.NeffB];
             for (int i = 0; i < matriks.NeffB; i++) sol[i] = dets[i+1] / dets[0];
-            for (int i = 0; i < matriks.NeffB; i++)
+            for (int i = 0; i < matriks.NeffB; i++) {
+                line += "x" +(i+1) + " = " + sol[i] + "\n";
                 System.out.println("x" +(i+1) + " = " + sol[i]);
+            }
 
+            System.out.println();
+            System.out.print("Simpan Hasil SPL?(y/n) ");
+            char simpan = Main.scanner.next().charAt(0);
+            String namaFile;
+
+            if (simpan == 'y') {
+                System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+                namaFile = Main.scanner.next();
+                saveSPLToFile(copyMat, line, namaFile);
+            }
         }
     }
 
@@ -204,7 +302,7 @@ class solver{
         System.out.print("Masukkan banyaknya nilai x yang ingin ditaksir: ");
         count = Main.scanner.nextInt(); 
         Float[] y = new Float[count];
-        Float x;
+        float x;
         Float[] bilX = new Float[count];
 
         System.out.println("Masukkan nilai x yang akan ditaksir: ");
