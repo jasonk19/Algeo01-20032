@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 class matriks {
     final int maxB = 100;
@@ -158,15 +157,16 @@ class matriks {
             index0baris[i] = temp;
             swapBaris(i, min_idx);
         }
-        // for (int i = 0; i < N ; i++) System.out.println(index0baris[i] +"");
     }
 
     void copyMatriksToThis(matriks newMat) {
-        for (int i=0; i < this.NeffB; i++) {
-            for (int j=0; j < this.NeffK; j++) {
+        for (int i=0; i < newMat.NeffB; i++) {
+            for (int j=0; j < newMat.NeffK; j++) {
                 this.Mat[i][j] = newMat.Mat[i][j];
             }
         }
+        this.NeffB = newMat.NeffB;
+        this.NeffK = newMat.NeffK;
     }
 
     void transpose() {
@@ -316,9 +316,6 @@ class matriks {
         }
         cof.NeffB = this.NeffB - 1;
         cof.NeffK = this.NeffK - 1;
-        // System.out.println("=======================");
-        // cof.displayMatriks();
-        // System.out.println("=======================");
 
         return cof;
     }
@@ -341,7 +338,6 @@ class matriks {
         int M = this.NeffK;
         int O = Min.NeffK;
         matriks Mout = new matriks();
-        // System.out.println(N+" "+M+" "+O);
         for (int i = 0; i < N; i++)
             for (int j = 0; j < O; j++)
                 for(int k =0; k < M; k++)

@@ -123,6 +123,7 @@ public class Main {
                 break;
             case 3:
                 InverseMatrixMenu();
+                break;
             case 4:
                 InterpolationMenu();
                 break;

@@ -3,7 +3,7 @@ import java.io.IOException;
 
 public class Regression {
 
-    static void saveRegressionToFile(matriks data, matriks hasil, float y, float[] peubah, String namaFile) {
+    private static void saveRegressionToFile(matriks data, matriks hasil, float y, float[] peubah, String namaFile) {
         String line = null;
 
         try {
