@@ -1,4 +1,55 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Regression {
+
+    static void saveRegressionToFile(matriks data, matriks hasil, float y, float[] peubah, String namaFile) {
+        String line = null;
+
+        try {
+            String newFileDir = "./hasil/" + namaFile;
+            FileWriter writeRegresi = new FileWriter(newFileDir);
+
+            String dataRegresi = "Data Regresi: \n";
+            for (int i=0; i < data.NeffK; i++) {
+                if (i != data.NeffK - 1) {
+                    dataRegresi += "x" + (i+1) + " | ";
+                } else {
+                    dataRegresi += "y \n";
+                }
+            }
+            for (int i=0; i < data.NeffB; i++) {
+                for (int j=0; j < data.NeffK; j ++) {
+                    dataRegresi += data.Mat[i][j] + " | ";
+                }
+                dataRegresi += "\n";
+            }
+
+            line = dataRegresi + "\nPersamaan hasil regresi: ";
+            line += "y = " + hasil.Mat[0][hasil.NeffK-1] + " + ";
+            for (int i = 1; i < hasil.NeffB; i++) {
+                if (i == hasil.NeffB-1) {
+                    line += hasil.Mat[i][hasil.NeffK-1] + "x" + i;
+                } else {
+                    line += hasil.Mat[i][hasil.NeffK-1] + "x" + i + " + ";
+                }
+            }
+
+            line += "\nNilai yang ditaksir adalah \n";
+            for (int i=0; i < peubah.length; i++) {
+                line += "x" + (i+1) + "=" + peubah[i] + ", ";
+            }
+
+            line += "\n\nHasil taksiran adalah y = " + y;
+
+            writeRegresi.write(line);
+            writeRegresi.close();
+            System.out.println("Berhasil menyimpan hasil regresi pada folder hasil, file \"" + namaFile + "\".");
+        } catch(IOException e) {
+            System.err.println("Error.");
+            e.printStackTrace();
+        }
+    }
 
     public static void LinearRegression() {
         int type = Main.inputData();
@@ -52,5 +103,16 @@ public class Regression {
 
         System.out.println();
         System.out.println("Hasil taksiran menggunakan regresi linear berganda adalah " + taksiran);
+
+        System.out.println();
+        System.out.print("Simpan Hasil Interpolasi?(y/n) ");
+        char simpan = Main.scanner.next().charAt(0);
+        String namaFile;
+
+        if (simpan == 'y') {
+            System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+            namaFile = Main.scanner.next();
+            saveRegressionToFile(matriks, regMatrix, taksiran, peubah, namaFile);
+        }
     }
 }
