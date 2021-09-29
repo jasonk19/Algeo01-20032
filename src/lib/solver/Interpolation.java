@@ -1,6 +1,9 @@
+package lib.solver;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import lib.matriks.matriks;
 
 public class Interpolation {
 

@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import lib.matriks.*;
+import lib.Utils.*;
+import lib.solver.*;
 
 public class Main {
 
@@ -128,13 +131,5 @@ public class Main {
         System.out.println("Terimasih sudah menggunakan aplikasi kami!");
         scanner.close();
         System.exit(0);
-    }
-    public static boolean isNumber(String str) { 
-        try {  
-            Float.parseFloat(str);  
-            return true;
-        } catch(NumberFormatException e){  
-            return false;  
-        }  
     }
 }

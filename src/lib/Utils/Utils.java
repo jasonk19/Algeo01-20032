@@ -1,3 +1,4 @@
+package lib.Utils;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -95,5 +96,14 @@ public class Utils {
 
     public static float fixFloatingPoint(float number) {
         return (Math.abs(Math.round(number) - number)) < 1.0e-4 ? Math.round(number) : number;
+    }
+
+    public static boolean isNumber(String str) { 
+        try {  
+            Float.parseFloat(str);  
+            return true;
+        } catch(NumberFormatException e){  
+            return false;  
+        }  
     }
 }

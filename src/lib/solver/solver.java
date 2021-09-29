@@ -1,8 +1,12 @@
+package lib.solver;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import lib.matriks.matriks;
+import lib.Utils.*;
 
-class solver{
+public class solver{
     static char[] parametric = {'p','q','r','s','t','u','v','w','a','b','c'}; 
     //maksimal variable 10
     private static void saveSPLToFile(matriks matriksSpl, String hasil, String namaFile) {
@@ -90,7 +94,7 @@ class solver{
 
         String line = "";
         for (int i = 0; i < M-1; i++) {
-            String eq = "x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+            String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
             line += eq + "\n";
             System.out.println(eq);
         }
@@ -165,7 +169,7 @@ class solver{
 
         String line = "";
         for (int i = 0; i < M-1; i++) {
-            String eq = "x"+(i+1) + " = " + ((Main.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+            String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
             line +=  eq + "\n";
             System.out.println(eq);
         }

@@ -1,16 +1,18 @@
+package lib.matriks;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-class matriks {
+public class matriks {
     final int maxB = 100;
     final int maxK = 100;
-    int NeffB, NeffK;
-    float det;
-    float[][] Mat = new float[maxB][maxK];
+    public int NeffB, NeffK;
+    public float det;
+    public float[][] Mat = new float[maxB][maxK];
 
-    matriks() {
+    public matriks() {
         this.det = 1;
         int i, j;
         for (i = 0; i < maxB; i++)
@@ -18,7 +20,7 @@ class matriks {
                 this.Mat[i][j] = 0;
     }
 
-    void readMatriks(int N, int M) {
+    public void readMatriks(int N, int M) {
         Scanner scanner = new Scanner(System.in);
         int i, j;
         for (i = 0; i < N; i++)
@@ -27,7 +29,7 @@ class matriks {
         this.NeffB = N;
         this.NeffK = M;
     }
-    int firstNonZero(int N){
+    public int firstNonZero(int N){
         int M = this.NeffK;
         int idx = 0;
         while (this.Mat[N][idx] == 0 && idx < M) {
@@ -36,7 +38,7 @@ class matriks {
         return idx;
 
     }
-    void readMatriks(String filename) {
+    public void readMatriks(String filename) {
         try {
             String line;
             BufferedReader reader = new BufferedReader(new FileReader("../test/" + filename));
@@ -58,7 +60,7 @@ class matriks {
         }
     }
 
-    void displayMatriks() {
+    public void displayMatriks() {
         int N = this.NeffB;
         int M = this.NeffK;
         int i, j;
@@ -68,7 +70,7 @@ class matriks {
             System.out.print("|\n");
         }
     }
-    matriks swapKolomFunc(int K1, int K2) {
+    public matriks swapKolomFunc(int K1, int K2) {
         matriks mOut = new matriks();
         int N = this.NeffB;
         int M = this.NeffK;
@@ -86,7 +88,7 @@ class matriks {
         return mOut;
 
     }
-    void swapBaris(int B1, int B2) {
+    public void swapBaris(int B1, int B2) {
         int M = this.NeffK;
         float temp;
         for (int i = 0; i < M; i++) {
@@ -97,44 +99,44 @@ class matriks {
         this.det *= -1;
     }
 
-    void tambahBaris(int B1, int B2) {
+    public void tambahBaris(int B1, int B2) {
         int M = this.NeffK;
         for (int i = 0; i < M; i++) this.Mat[B1][i] += this.Mat[B2][i];
     }
 
-    void tambahBarisNKali(int B1, int B2, float N) {
+    public void tambahBarisNKali(int B1, int B2, float N) {
         int M = this.NeffK;
         for (int i = 0; i < M; i++) this.Mat[B1][i] += this.Mat[B2][i] * N;
     }
 
-    void kurangBaris(int B1, int B2) {
+    public void kurangBaris(int B1, int B2) {
         int M = this.NeffK;
         for (int i = 0; i < M; i++) this.Mat[B1][i] -= this.Mat[B2][i];
     }
 
-    void kurangBarisNKali(int B1, int B2, float N) {
+    public void kurangBarisNKali(int B1, int B2, float N) {
         int M = this.NeffK;
         for (int i = 0; i < M; i++) this.Mat[B1][i] -= this.Mat[B2][i] * N;
     }
 
-    void kaliBaris(int B, float K) {
+    public void kaliBaris(int B, float K) {
         int M = this.NeffK;
         for (int i = 0; i < M; i++) this.Mat[B][i] *= K;
         this.det *= 1 / K;
     }
 
-    float[] BarisdiKali(int B, float K) {
+    public float[] BarisdiKali(int B, float K) {
         int M = this.NeffK;
         float[] MKali = new float[M];
         for (int i = 0; i < M; i++) MKali[i] = this.Mat[B][i] * K;
         return MKali;
     }
 
-    boolean isZero(int B, int K) {
+    public boolean isZero(int B, int K) {
         return (this.Mat[B][K] == 0);
     }
 
-    void sortObe() {
+    public void sortObe() {
         int N = this.NeffB;
         int M = this.NeffK;
         int[] index0baris = new int[N];
@@ -160,7 +162,7 @@ class matriks {
         }
     }
 
-    void copyMatriksToThis(matriks newMat) {
+    public void copyMatriksToThis(matriks newMat) {
         for (int i=0; i < newMat.NeffB; i++) {
             for (int j=0; j < newMat.NeffK; j++) {
                 this.Mat[i][j] = newMat.Mat[i][j];
@@ -170,7 +172,7 @@ class matriks {
         this.NeffK = newMat.NeffK;
     }
 
-    void transpose() {
+    public void transpose() {
         for (int i=0; i < this.NeffB; i++) {
             for (int j=i; j < this.NeffK; j++) {
                 float temp = this.Mat[i][j];
@@ -180,7 +182,7 @@ class matriks {
         }
     }
 
-    void eliminasiGauss() {
+    public void eliminasiGauss() {
         int N = this.NeffB;
         int M = this.NeffK;
         for (int i = 0; i < N; i++) {
@@ -198,7 +200,7 @@ class matriks {
         }
     }
 
-    void eliminasiGaussJordan() {
+    public void eliminasiGaussJordan() {
         this.eliminasiGauss();
         int N = this.NeffB;
         int M = this.NeffK;
@@ -209,7 +211,7 @@ class matriks {
         }
     }
 
-    void gaussJordanInversOf(matriks Min) {
+    public void gaussJordanInversOf(matriks Min) {
         //menghitung inverse matrix dengan metode gaus jordan
         //prekondisi ukuran (N x N), NeffK < maxK dan mempunyai invers
         int N = Min.NeffB;
@@ -236,7 +238,7 @@ class matriks {
         this.NeffK = M;
     }
 
-    void getCofactor(matriks temp, int p, int q, int n) {
+    public void getCofactor(matriks temp, int p, int q, int n) {
         int i = 0;
         int j = 0;
         for (int row = 0; row < n; row++) {
@@ -252,7 +254,7 @@ class matriks {
         }
     }
 
-    float determinantRecc(matriks mat, int currentRow) {
+    public float determinantRecc(matriks mat, int currentRow) {
         float det = 0;
 
         if (currentRow == 2) {
@@ -270,7 +272,7 @@ class matriks {
         return det;
     }
 
-    void matrixCofactor() {
+    public void matrixCofactor() {
         matriks newMat = new matriks();
         newMat.NeffB = this.NeffB;
         newMat.NeffK = this.NeffK;
@@ -288,12 +290,12 @@ class matriks {
         copyMatriksToThis(newMat);
     }
 
-    void adjoinCofactor() {
+    public void adjoinCofactor() {
         this.matrixCofactor();
         this.transpose();
     }
 
-    void cofactorMinorInvers() {
+    public void cofactorMinorInvers() {
         float det = this.determinantRecc(this, this.NeffB);
         this.adjoinCofactor();
         for (int i = 0; i < this.NeffK; i++) {
@@ -301,7 +303,7 @@ class matriks {
         }
     }
 
-    matriks cofactor(int B, int K){
+    public matriks cofactor(int B, int K){
         int N = this.NeffB;
         matriks cof = new matriks();
         int idxBcof = 0;
@@ -320,7 +322,7 @@ class matriks {
 
         return cof;
     }
-    float determinan(){
+    public float determinan(){
         //menghitung determinan dengan ekspansi kofaktor
         //matriks harus berukuran (N x N)
         float det = 0;
@@ -333,7 +335,7 @@ class matriks {
         }
         return det;
     }
-    matriks multiplyByMatrix(matriks Min){
+    public matriks multiplyByMatrix(matriks Min){
         //prekondisi jumlah kolom object = jumlah baris M
         int N = this.NeffB;
         int M = this.NeffK;
