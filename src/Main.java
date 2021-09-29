@@ -1,7 +1,10 @@
+import lib.Utils.Utils;
+import lib.solver.Determinant;
+import lib.solver.Inversion;
+import lib.solver.Regression;
+import lib.solver.solver;
+
 import java.util.Scanner;
-import lib.matriks.*;
-import lib.Utils.*;
-import lib.solver.*;
 
 public class Main {
 
@@ -26,26 +29,14 @@ public class Main {
         choice = Utils.buildMenu(mainMenu, "MENU", 6);
 
         switch (choice) {
-            case 1:
-                SPLMenu();
-                break;
-            case 2:
-                DeterminantMenu();
-                break;
-            case 3:
-                InverseMatrixMenu();
-                break;
-            case 4:
-                InterpolationMenu();
-                break;
-            case 5:
-                LinearRegressionMenu();
-                break;
-            case 6:
-                ExitMenu();
-                break;
-            default:
-                break;
+            case 1 -> SPLMenu();
+            case 2 -> DeterminantMenu();
+            case 3 -> InverseMatrixMenu();
+            case 4 -> InterpolationMenu();
+            case 5 -> LinearRegressionMenu();
+            case 6 -> ExitMenu();
+            default -> {
+            }
         }
     }
 
@@ -120,7 +111,7 @@ public class Main {
         System.out.println();
         System.out.print("Ingin melanjutkan menggunakan aplikasi?[y/n] (default: n) ");
         String choice = scanner.next();
-        if ((choice.toLowerCase().equals("y"))) {
+        if ((choice.equalsIgnoreCase("y"))) {
             MainMenu();
         } else {
             ExitMenu();

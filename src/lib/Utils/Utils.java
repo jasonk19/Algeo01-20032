@@ -27,8 +27,8 @@ public class Utils {
         String choice = scanner.next();
 
         while (invalidChoice(choice, maxMenu)) {
-            System.out.println("Please enter the correct choice[1-"+maxMenu+"]!!!");
-            System.out.print("YOUR LIFE CHOICE: ");
+            System.out.println("Masukkan pilihan yang benar [1-"+maxMenu+"]!!!");
+            System.out.print("Pilihan: ");
             choice = scanner.next();
         }
         return Integer.parseInt(choice);
@@ -87,7 +87,7 @@ public class Utils {
         System.out.print("Masukkan nama file: ");
         String filename = scanner.next();
         while (!(new File("../test/" + filename)).exists()) {
-            System.out.println("File not found! Enter the correct name");
+            System.out.println("File tidak ditemukan! Masukkan nama file yang benar");
             System.out.print("Masukkan nama file: ");
             filename = scanner.next();
         }

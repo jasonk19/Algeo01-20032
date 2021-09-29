@@ -56,7 +56,7 @@ public class matriks {
             this.NeffB = i;
             reader.close();
         } catch (IOException e) {
-            System.out.println("An error occured, " + e.getMessage());
+            System.out.println("Terjadi error, " + e.getMessage());
         }
     }
 
