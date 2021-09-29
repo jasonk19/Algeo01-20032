@@ -82,31 +82,32 @@ public class solver{
                 int idx = 0;
                 //mencari element bukan 0 pertama pada baris
                 while (matriks.isZero(i, idx) && idx < M-2) idx++;
+                if (idx == M-2 && matriks.Mat[i][idx] == 0) continue;
                 for (int j = idx + 1; j < M-1; j++){
                     try{
                         float x = matriks.Mat[i][j] * Float.parseFloat(sol[j][0]);
                         hasilF -= x;
                     } catch (Exception e){
-                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        float fix = -1 * Utils.fixFloatingPoint(matriks.Mat[i][j]);
                         if (fix > 0 && fix != 1)
-                            hasilS += " -" +fix+ "*" + sol[j][0];
+                            hasilS += " +" +fix+ "*" + sol[j][0];
                         else if(fix == 1)
-                            hasilS += " -" + sol[j][0];
-                        else if(fix < 0 && fix != -1)
-                            hasilS += " +" +fix+"*" + sol[j][0];
-                        else if(fix == -1)
                             hasilS += " +" + sol[j][0];
+                        else if(fix < 0 && fix != -1)
+                            hasilS += " " +fix+"*" + sol[j][0];
+                        else if(fix == -1)
+                            hasilS += " " + sol[j][0];
                     }
                     if (sol[j][1] != null && !sol[j][1].equals("")){
-                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        float fix = -1 * Utils.fixFloatingPoint(matriks.Mat[i][j]);
                         if (fix > 0 && fix != 1)
-                            hasilS += " -" +fix+"*("+sol[j][1]+ ")";
-                        else if(fix == 1)
-                            hasilS += " -" + "("+sol[j][1]+ ")";
-                        else if(fix < 0 && fix != -1)
                             hasilS += " +" +fix+"*("+sol[j][1]+ ")";
-                        else if(fix == -1)
+                        else if(fix == 1)
                             hasilS += " +" + "("+sol[j][1]+ ")";
+                        else if(fix < 0 && fix != -1)
+                            hasilS += " " +fix+"*("+sol[j][1]+ ")";
+                        else if(fix == -1)
+                            hasilS += " " + "("+sol[j][1]+ ")";
 
                     }
                 }
@@ -173,38 +174,38 @@ public class solver{
             }
         } 
         else {
-
             for (int i = N-1; i >= 0; i--){
                 float hasilF = matriks.Mat[i][M-1];
                 String hasilS ="";
                 int idx = 0;
                 //mencari element bukan 0 pertama pada baris
                 while (matriks.isZero(i, idx) && idx < M-2) idx++;
+                if (idx == M-2 && matriks.Mat[i][idx] == 0) continue;
                 for (int j = idx + 1; j < M-1; j++){
                     try{
                         float x = matriks.Mat[i][j] * Float.parseFloat(sol[j][0]);
                         hasilF -= x;
                     } catch (Exception e){
-                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        float fix = -1 * Utils.fixFloatingPoint(matriks.Mat[i][j]);
                         if (fix > 0 && fix != 1)
-                            hasilS += " -" +fix+ "*" + sol[j][0];
+                            hasilS += " +" +fix+ "*" + sol[j][0];
                             else if(fix == 1)
-                            hasilS += " -" + sol[j][0];
-                            else if(fix < 0 && fix != -1)
-                            hasilS += " +" +fix+"*" + sol[j][0];
-                            else if(fix == -1)
                             hasilS += " +" + sol[j][0];
+                            else if(fix < 0 && fix != -1)
+                            hasilS += " " +fix+"*" + sol[j][0];
+                            else if(fix == -1)
+                            hasilS += " " + sol[j][0];
                     }
                     if (sol[j][1] != null && !sol[j][1].equals("")){
-                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        float fix = -1 * Utils.fixFloatingPoint(matriks.Mat[i][j]);
                         if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+"*("+sol[j][1]+ ")";
+                        hasilS += " +" +fix+"*("+sol[j][1]+ ")";
                         else if(fix == 1)
-                            hasilS += " -" + "("+sol[j][1]+ ")";
-                            else if(fix < 0 && fix != -1)
-                            hasilS += " +" +fix+"*("+sol[j][1]+ ")";
-                            else if(fix == -1)
                             hasilS += " +" + "("+sol[j][1]+ ")";
+                        else if(fix < 0 && fix != -1)
+                            hasilS += " " +fix+"*("+sol[j][1]+ ")";
+                        else if(fix == -1)
+                            hasilS += " " + "("+sol[j][1]+ ")";
                             
                         }
                 }
