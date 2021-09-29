@@ -2,6 +2,7 @@ package lib.solver;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import lib.matriks.matriks;
 import lib.Utils.*;
@@ -115,7 +116,7 @@ public class solver{
             
             String line = "";
             for (int i = 0; i < M-1; i++) {
-                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0 && sol[i][1] != null && sol[i][1] != "" )  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
                 line += eq + "\n";
                 System.out.println(eq);
             }
@@ -213,11 +214,10 @@ public class solver{
             
             String line = "";
             for (int i = 0; i < M-1; i++) {
-                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0 && sol[i][1] != null && sol[i][1] != "" )  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
                 line +=  eq + "\n";
                 System.out.println(eq);
             }
-            
             System.out.println();
             System.out.print("Simpan Hasil SPL?(y/n) ");
             char simpan = scanner.next().charAt(0);
