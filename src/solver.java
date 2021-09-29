@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 class solver{
+    static char[] parametric = {'p','q','r','s','t','u','v','w','a','b','c'}; 
+    //maksimal variable 10
     private static void saveSPLToFile(matriks matriksSpl, String hasil, String namaFile) {
         String line = "";
 
@@ -46,7 +48,7 @@ class solver{
         int N = matriks.NeffB;
         int M = matriks.NeffK;
         String[][] sol = new String[M-1][2];
-        for (int i = 0; i < M-1; i++) sol[i][0] = "x"+ (i+1);
+        for (int i = 0; i < M-1; i++) sol[i][0] = String.valueOf(parametric[i]);
         matriks.eliminasiGauss();
         for (int i = N-1; i >= 0; i--){
             float hasilF = matriks.Mat[i][M-1];
@@ -61,15 +63,13 @@ class solver{
                 } catch (Exception e){
                     float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
                     if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+"*x" + (j+1);
+                        hasilS += " -" +fix+ "*" + sol[j][0];
                     else if(fix == 1)
-                        hasilS += " -x" + (j+1);
-                    else if(fix < 0 && fix != 1)
-                        hasilS += "+ " +fix+"*x" + (j+1);
-                    else if(fix < 0 && fix == 1)
-                        hasilS += "+ x" + (j+1);
-                    else 
-                        hasilS = hasilS;
+                        hasilS += " -" + sol[j][0];
+                    else if(fix < 0 && fix != -1)
+                        hasilS += " +" +fix+"*" + sol[j][0];
+                    else if(fix == -1)
+                        hasilS += " +" + sol[j][0];
                 }
                 if (sol[j][1] != null && !sol[j][1].equals("")){
                     float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
@@ -77,9 +77,9 @@ class solver{
                         hasilS += " -" +fix+"*("+sol[j][1]+ ")";
                     else if(fix == 1)
                         hasilS += " -" + "("+sol[j][1]+ ")";
-                    else if(fix < 0 && fix != 1)
-                        hasilS += "+ " +fix+"*("+sol[j][1]+ ")";
-                    else if(fix < 0 && fix == 1)
+                    else if(fix < 0 && fix != -1)
+                        hasilS += " +" +fix+"*("+sol[j][1]+ ")";
+                    else if(fix == -1)
                         hasilS += " +" + "("+sol[j][1]+ ")";
 
                 }
@@ -123,7 +123,7 @@ class solver{
         int N = matriks.NeffB;
         int M = matriks.NeffK;
         String[][] sol = new String[M-1][2];
-        for (int i = 0; i < M-1; i++) sol[i][0] = "x"+ (i+1);
+        for (int i = 0; i < M-1; i++) sol[i][0] = String.valueOf(parametric[i]);
         matriks.eliminasiGaussJordan();
         for (int i = N-1; i >= 0; i--){
             float hasilF = matriks.Mat[i][M-1];
@@ -138,15 +138,13 @@ class solver{
                 } catch (Exception e){
                     float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
                     if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+"*x" + (j+1);
+                        hasilS += " -" +fix+ "*" + sol[j][0];
                     else if(fix == 1)
-                        hasilS += " -x" + (j+1);
-                    else if(fix < 0 && fix != 1)
-                        hasilS += "+ " +fix+"*x" + (j+1);
-                    else if(fix < 0 && fix == 1)
-                        hasilS += "+ x" + (j+1);
-                    else
-                        hasilS = hasilS;
+                        hasilS += " -" + sol[j][0];
+                    else if(fix < 0 && fix != -1)
+                        hasilS += " +" +fix+"*" + sol[j][0];
+                    else if(fix == -1)
+                        hasilS += " +" + sol[j][0];
                 }
                 if (sol[j][1] != null && !sol[j][1].equals("")){
                     float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
@@ -154,9 +152,9 @@ class solver{
                         hasilS += " -" +fix+"*("+sol[j][1]+ ")";
                     else if(fix == 1)
                         hasilS += " -" + "("+sol[j][1]+ ")";
-                    else if(fix < 0 && fix != 1)
-                        hasilS += "+ " +fix+"*("+sol[j][1]+ ")";
-                    else if(fix < 0 && fix == 1)
+                    else if(fix < 0 && fix != -1)
+                        hasilS += " +" +fix+"*("+sol[j][1]+ ")";
+                    else if(fix == -1)
                         hasilS += " +" + "("+sol[j][1]+ ")";
 
                 }
