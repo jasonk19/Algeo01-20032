@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 class matriks {
     final int maxB = 100;
@@ -18,10 +19,11 @@ class matriks {
     }
 
     void readMatriks(int N, int M) {
+        Scanner scanner = new Scanner(System.in);
         int i, j;
         for (i = 0; i < N; i++)
             for (j = 0; j < M; j++)
-                this.Mat[i][j] = Main.scanner.nextFloat();
+                this.Mat[i][j] = scanner.nextFloat();
         this.NeffB = N;
         this.NeffK = M;
     }
@@ -31,7 +33,6 @@ class matriks {
         while (this.Mat[N][idx] == 0 && idx < M) {
             idx++;
         };
-        // System.out.println(this.Mat[N][idx]);
         return idx;
 
     }

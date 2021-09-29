@@ -1,100 +1,8 @@
-import java.io.File;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 
     public static Scanner scanner;
-
-    public static boolean validChoice(String choice, int max) {
-        int intChoice;
-        try {
-            intChoice = Integer.parseInt(choice);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return 1 <= intChoice && intChoice <= max;
-    }
-
-    private static int buildMenu(String[] menu, String title, int maxMenu) {
-        System.out.println();
-        System.out.println("================================================");
-        System.out.println(title);
-        Arrays.stream(menu).forEachOrdered(System.out::println);
-        System.out.println("================================================");
-        System.out.println();
-        System.out.print("YOUR LIFE CHOICE: ");
-
-        String choice = scanner.next();
-
-        while (!validChoice(choice, maxMenu)) {
-            System.out.println("Please enter the correct choice[1-"+maxMenu+"]!!!");
-            System.out.print("YOUR LIFE CHOICE: ");
-            choice = scanner.next();
-        }
-        return Integer.parseInt(choice);
-    }
-
-    public static int inputData() {
-        int inputType;
-        String[] inputTypeMenu = {
-                "1. Input data dari keyboard",
-                "2. Input data dari file"
-        };
-        inputType = buildMenu(inputTypeMenu, "Input Type", 2);
-        return inputType;
-    }
-
-    public static int inputBarisNKolom() {
-        System.out.print("Masukkan jumlah baris dan kolom: ");
-        String input = scanner.next();
-        while (!Main.validChoice(input, 100)) {
-            System.out.println("Masukkan jumlah yang benar");
-            System.out.print("Masukkan jumlah baris dan kolom: ");
-            input = Main.scanner.next();
-        }
-        return Integer.parseInt(input);
-    }
-
-    public static int[] inputDataRegression() {
-        int[] colNRow = {0, 0};
-
-        System.out.print("Masukkan jumlah peubah (x): ");
-        String kolom = scanner.next();
-        while (!Main.validChoice(kolom, 100)) {
-            System.out.println("Masukkan jumlah yang benar");
-            System.out.print("Masukkan jumlah peubah (x): ");
-            kolom = Main.scanner.next();
-        }
-
-        System.out.print("Masukkan jumlah data: ");
-        String baris = scanner.next();
-        while (!Main.validChoice(baris, 100)) {
-            System.out.println("Masukkan jumlah yang benar");
-            System.out.print("Masukkan jumlah data: ");
-            baris = Main.scanner.next();
-        }
-
-        colNRow[0] = Integer.parseInt(baris);
-        colNRow[1] = Integer.parseInt(kolom);
-
-        return colNRow;
-    }
-
-    public static String inputDariFile() {
-        System.out.print("Masukkan nama file: ");
-        String filename = Main.scanner.next();
-        while (!(new File("../test/" + filename)).exists()) {
-            System.out.println("File not found! Enter the correct name");
-            System.out.print("Masukkan nama file: ");
-            filename = Main.scanner.next();
-        }
-        return filename;
-    }
-
-    public static float fixFloatingPoint(float number) {
-        return (Math.abs(Math.round(number) - number)) < 1.0e-4 ? Math.round(number) : number;
-    }
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -112,7 +20,7 @@ public class Main {
                 "6. Keluar"
         };
 
-        choice = buildMenu(mainMenu, "MENU", 6);
+        choice = Utils.buildMenu(mainMenu, "MENU", 6);
 
         switch (choice) {
             case 1:
@@ -147,7 +55,7 @@ public class Main {
                 "4. Kaidah Cramer"
         };
 
-        choice = buildMenu(splMenu, "Sistem Persamaan Linear", 4);
+        choice = Utils.buildMenu(splMenu, "Sistem Persamaan Linear", 4);
         if (choice == 1){
             solver.gaussSolver();
         } else if (choice == 2)
@@ -169,7 +77,7 @@ public class Main {
                 "2. Metode Ekspansi Kofaktor-minor"
         };
 
-        choice = buildMenu(determinantMenu, "Determinan", 2);
+        choice = Utils.buildMenu(determinantMenu, "Determinan", 2);
         if (choice == 1) {
             Determinant.gaussianDet();
         } else if (choice == 2) {
@@ -185,7 +93,7 @@ public class Main {
                 "2. Metode Eliminasi Gauss-Jordan"
         };
 
-        choice = buildMenu(inverseMatrixMenu, "Matriks balikan", 2);
+        choice = Utils.buildMenu(inverseMatrixMenu, "Matriks balikan", 2);
         if (choice == 1) {
             Inversion.cofactorMinorInversion();
         } else if (choice == 2) {

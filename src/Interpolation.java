@@ -1,14 +1,16 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Interpolation {
 
   matriks readTitikInterpolation() {
+    Scanner scanner = new Scanner(System.in);
     matriks titik = new matriks();
     int N;
 
     System.out.println("Masukkan jumlah titik: ");
-    N = Main.scanner.nextInt();
+    N = scanner.nextInt();
 
     System.out.println("Masukkan kombinasi titik: ");
     titik.readMatriks(N,2);
@@ -25,8 +27,9 @@ public class Interpolation {
   }
 
   float readxTaksiran() {
+    Scanner scanner = new Scanner(System.in);
     float x;
-    x = Main.scanner.nextFloat();
+    x = scanner.nextFloat();
     return x;
   }
  

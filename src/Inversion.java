@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Inversion {
 
@@ -36,14 +37,19 @@ public class Inversion {
     }
 
     public static void gaussianInversion() {
-        int type = Main.inputData();
+        Scanner scanner = new Scanner(System.in);
+        int type = Utils.inputData();
         matriks matriks = new matriks();
 
         if (type == 1) {
-            int rowNCol = Main.inputBarisNKolom();
+            int rowNCol = Utils.inputBarisNKolom();
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
-            matriks.readMatriks(Main.inputDariFile());
+            matriks.readMatriks(Utils.inputDariFile());
+            if (matriks.NeffB != matriks.NeffK) {
+                System.out.println("Matriks tidak berbentuk persegi, tidak mempunyai invers");
+                return;
+            }
         }
         matriks copyMat = new matriks();
         copyMat.copyMatriksToThis(matriks);
@@ -55,25 +61,30 @@ public class Inversion {
 
         System.out.println();
         System.out.print("Simpan Hasil Invers?(y/n) ");
-        char simpan = Main.scanner.next().charAt(0);
+        char simpan = scanner.next().charAt(0);
         String namaFile;
 
         if (simpan == 'y') {
             System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = Main.scanner.next();
+            namaFile = scanner.next();
             saveInverseToFile(copyMat, matriks, namaFile);
         }
     }
 
     public static void cofactorMinorInversion() {
-        int type = Main.inputData();
+        Scanner scanner = new Scanner(System.in);
+        int type = Utils.inputData();
         matriks matriks = new matriks();
 
         if (type == 1) {
-            int rowNCol = Main.inputBarisNKolom();
+            int rowNCol = Utils.inputBarisNKolom();
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
-            matriks.readMatriks(Main.inputDariFile());
+            matriks.readMatriks(Utils.inputDariFile());
+            if (matriks.NeffB != matriks.NeffK) {
+                System.out.println("Matriks tidak berbentuk persegi, tidak mempunyai invers");
+                return;
+            }
         }
         matriks copyMat = new matriks();
         copyMat.copyMatriksToThis(matriks);
@@ -85,12 +96,12 @@ public class Inversion {
 
         System.out.println();
         System.out.print("Simpan Hasil Invers?(y/n) ");
-        char simpan = Main.scanner.next().charAt(0);
+        char simpan = scanner.next().charAt(0);
         String namaFile;
 
         if (simpan == 'y') {
             System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = Main.scanner.next();
+            namaFile = scanner.next();
             saveInverseToFile(copyMat, matriks, namaFile);
         }
     }

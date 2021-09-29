@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Regression {
 
@@ -52,14 +53,15 @@ public class Regression {
     }
 
     public static void LinearRegression() {
-        int type = Main.inputData();
+        Scanner scanner = new Scanner(System.in);
+        int type = Utils.inputData();
         matriks matriks = new matriks();
 
         if (type == 1) {
-            int[] rowNCol = Main.inputDataRegression();
+            int[] rowNCol = Utils.inputDataRegression();
             matriks.readMatriks(rowNCol[0], rowNCol[1] + 1);
         } else if (type == 2) {
-            matriks.readMatriks(Main.inputDariFile());
+            matriks.readMatriks(Utils.inputDariFile());
         }
 
         System.out.println();
@@ -67,7 +69,7 @@ public class Regression {
         float[] peubah = new float[matriks.NeffK - 1];
         for (int i=0; i < matriks.NeffK - 1; i++) {
             System.out.print("Masukkan nilai peubah x" + (i + 1) + ": ");
-            peubah[i] = Main.scanner.nextFloat();
+            peubah[i] = scanner.nextFloat();
         }
 
         matriks regMatrix = new matriks();
@@ -106,12 +108,12 @@ public class Regression {
 
         System.out.println();
         System.out.print("Simpan Hasil Interpolasi?(y/n) ");
-        char simpan = Main.scanner.next().charAt(0);
+        char simpan = scanner.next().charAt(0);
         String namaFile;
 
         if (simpan == 'y') {
             System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = Main.scanner.next();
+            namaFile = scanner.next();
             saveRegressionToFile(matriks, regMatrix, taksiran, peubah, namaFile);
         }
     }

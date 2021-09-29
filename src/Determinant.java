@@ -1,5 +1,6 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Determinant {
 
@@ -30,14 +31,15 @@ public class Determinant {
     }
 
     public static void gaussianDet() {
-        int type = Main.inputData();
+        Scanner scanner = new Scanner(System.in);
+        int type = Utils.inputData();
         matriks matriks = new matriks();
 
         if (type == 1) {
-            int rowNCol = Main.inputBarisNKolom();
+            int rowNCol = Utils.inputBarisNKolom();
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
-            matriks.readMatriks(Main.inputDariFile());
+            matriks.readMatriks(Utils.inputDariFile());
             if (matriks.NeffB != matriks.NeffK) {
                 System.out.println("Matriks tidak berbentuk persegi, determinan tidak ada!");
                 return;
@@ -53,29 +55,30 @@ public class Determinant {
         }
 
         System.out.println();
-        System.out.println("Determinan = " + Main.fixFloatingPoint(matriks.det));
+        System.out.println("Determinan = " + Utils.fixFloatingPoint(matriks.det));
 
         System.out.println();
         System.out.print("Simpan Hasil Determinan?(y/n) ");
-        char simpan = Main.scanner.next().charAt(0);
+        char simpan = scanner.next().charAt(0);
         String namaFile;
 
         if (simpan == 'y') {
             System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = Main.scanner.next();
-            saveDeterminantToFile(copyMat, Main.fixFloatingPoint(matriks.det), namaFile);
+            namaFile = scanner.next();
+            saveDeterminantToFile(copyMat, Utils.fixFloatingPoint(matriks.det), namaFile);
         }
     }
 
     public static void cofactorMinorDet() {
-        int type = Main.inputData();
+        Scanner scanner = new Scanner(System.in);
+        int type = Utils.inputData();
         matriks matriks = new matriks();
 
         if (type == 1) {
-            int rowNCol = Main.inputBarisNKolom();
+            int rowNCol = Utils.inputBarisNKolom();
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
-            matriks.readMatriks(Main.inputDariFile());
+            matriks.readMatriks(Utils.inputDariFile());
             if (matriks.NeffB != matriks.NeffK) {
                 System.out.println("Matriks tidak berbentuk persegi, determinan tidak ada!");
                 return;
@@ -84,16 +87,16 @@ public class Determinant {
         float det = matriks.determinantRecc(matriks, matriks.NeffB);
 
         System.out.println();
-        System.out.println("Determinan = " + Main.fixFloatingPoint(det));
+        System.out.println("Determinan = " + Utils.fixFloatingPoint(det));
 
         System.out.println();
         System.out.print("Simpan Hasil Determinan?(y/n) ");
-        char simpan = Main.scanner.next().charAt(0);
+        char simpan = scanner.next().charAt(0);
         String namaFile;
 
         if (simpan == 'y') {
             System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = Main.scanner.next();
+            namaFile = scanner.next();
             saveDeterminantToFile(matriks, det, namaFile);
         }
     }
