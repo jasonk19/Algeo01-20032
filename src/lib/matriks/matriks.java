@@ -98,7 +98,6 @@ public class matriks {
         }
         this.det *= -1;
     }
-
     public void tambahBaris(int B1, int B2) {
         int M = this.NeffK;
         for (int i = 0; i < M; i++) this.Mat[B1][i] += this.Mat[B2][i];
@@ -192,10 +191,9 @@ public class matriks {
             while (this.Mat[i][j] == 0 && j < M) j++;
             //membuat element bukan 0 pertama baris menjadi 1
             if (!(isZero(i, j))) this.kaliBaris(i, 1 / this.Mat[i][j]);
-            if (i != N - 1) {
                 //membuat baris lain 0 di kolom j,
-                for (int temp = i + 1; temp < N; temp++)
-                    if (this.Mat[temp][j] != 0) this.kurangBarisNKali(temp, i, this.Mat[temp][j]);
+            for (int temp = i + 1; temp < N; temp++){
+                if (this.Mat[temp][j] != 0) this.kurangBarisNKali(temp, i, this.Mat[temp][j]);
             }
         }
     }

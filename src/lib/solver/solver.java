@@ -48,7 +48,6 @@ public class solver{
         }
         matriks copyMat = new matriks();
         copyMat.copyMatriksToThis(matriks);
-
         int N = matriks.NeffB;
         int M = matriks.NeffK;
         String[][] sol = new String[M-1][2];
@@ -75,7 +74,6 @@ public class solver{
             }
         } 
         else{
-
             for (int i = N-1; i >= 0; i--){
                 float hasilF = matriks.Mat[i][M-1];
                 String hasilS ="";
@@ -96,7 +94,7 @@ public class solver{
                         else if(fix < 0 && fix != -1)
                             hasilS += " " +fix+"*" + sol[j][0];
                         else if(fix == -1)
-                            hasilS += " " + sol[j][0];
+                            hasilS += " -" + sol[j][0];
                     }
                     if (sol[j][1] != null && !sol[j][1].equals("")){
                         float fix = -1 * Utils.fixFloatingPoint(matriks.Mat[i][j]);
@@ -107,7 +105,7 @@ public class solver{
                         else if(fix < 0 && fix != -1)
                             hasilS += " " +fix+"*("+sol[j][1]+ ")";
                         else if(fix == -1)
-                            hasilS += " " + "("+sol[j][1]+ ")";
+                            hasilS += " -" + "("+sol[j][1]+ ")";
 
                     }
                 }
@@ -194,7 +192,7 @@ public class solver{
                             else if(fix < 0 && fix != -1)
                             hasilS += " " +fix+"*" + sol[j][0];
                             else if(fix == -1)
-                            hasilS += " " + sol[j][0];
+                            hasilS += " -" + sol[j][0];
                     }
                     if (sol[j][1] != null && !sol[j][1].equals("")){
                         float fix = -1 * Utils.fixFloatingPoint(matriks.Mat[i][j]);
@@ -205,7 +203,7 @@ public class solver{
                         else if(fix < 0 && fix != -1)
                             hasilS += " " +fix+"*("+sol[j][1]+ ")";
                         else if(fix == -1)
-                            hasilS += " " + "("+sol[j][1]+ ")";
+                            hasilS += " -" + "("+sol[j][1]+ ")";
                             
                         }
                 }
