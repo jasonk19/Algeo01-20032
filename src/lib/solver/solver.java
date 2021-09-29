@@ -54,60 +54,83 @@ public class solver{
         String[][] sol = new String[M-1][2];
         for (int i = 0; i < M-1; i++) sol[i][0] = String.valueOf(parametric[i]);
         matriks.eliminasiGauss();
-        for (int i = N-1; i >= 0; i--){
-            float hasilF = matriks.Mat[i][M-1];
-            String hasilS ="";
-            int idx = 0;
-            //mencari element bukan 0 pertama pada baris
-            while (matriks.isZero(i, idx) && idx < M-2) idx++;
-            for (int j = idx + 1; j < M-1; j++){
-                try{
-                    float x = matriks.Mat[i][j] * Float.parseFloat(sol[j][0]);
-                    hasilF -= x;
-                } catch (Exception e){
-                    float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
-                    if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+ "*" + sol[j][0];
-                    else if(fix == 1)
-                        hasilS += " -" + sol[j][0];
-                    else if(fix < 0 && fix != -1)
-                        hasilS += " +" +fix+"*" + sol[j][0];
-                    else if(fix == -1)
-                        hasilS += " +" + sol[j][0];
-                }
-                if (sol[j][1] != null && !sol[j][1].equals("")){
-                    float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
-                    if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+"*("+sol[j][1]+ ")";
-                    else if(fix == 1)
-                        hasilS += " -" + "("+sol[j][1]+ ")";
-                    else if(fix < 0 && fix != -1)
-                        hasilS += " +" +fix+"*("+sol[j][1]+ ")";
-                    else if(fix == -1)
-                        hasilS += " +" + "("+sol[j][1]+ ")";
-
-                }
+        boolean checker = true;
+        int l = 0;
+        while (l < M - 1 && checker) {
+            if (matriks.Mat[N-1][l] == 0) l++;
+            else checker = false;
+        }
+        if (checker && matriks.Mat[N-1][M-1] != 0)
+        {
+            System.out.println("Persamaan tidak memiliki solusi real.");
+            System.out.println();
+            System.out.print("Simpan Hasil SPL?(y/n) ");
+            char simpan = scanner.next().charAt(0);
+            String namaFile;
+            
+            if (simpan == 'y') {
+                System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+                namaFile = scanner.next();
+                saveSPLToFile(copyMat, "Persamaan tidak memiliki solusi real.", namaFile);
             }
-            sol[idx][0] = Float.toString(hasilF);
-            sol[idx][1] = hasilS;
-        }
+        } 
+        else{
 
-        String line = "";
-        for (int i = 0; i < M-1; i++) {
-            String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
-            line += eq + "\n";
-            System.out.println(eq);
-        }
+            for (int i = N-1; i >= 0; i--){
+                float hasilF = matriks.Mat[i][M-1];
+                String hasilS ="";
+                int idx = 0;
+                //mencari element bukan 0 pertama pada baris
+                while (matriks.isZero(i, idx) && idx < M-2) idx++;
+                for (int j = idx + 1; j < M-1; j++){
+                    try{
+                        float x = matriks.Mat[i][j] * Float.parseFloat(sol[j][0]);
+                        hasilF -= x;
+                    } catch (Exception e){
+                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        if (fix > 0 && fix != 1)
+                            hasilS += " -" +fix+ "*" + sol[j][0];
+                        else if(fix == 1)
+                            hasilS += " -" + sol[j][0];
+                        else if(fix < 0 && fix != -1)
+                            hasilS += " +" +fix+"*" + sol[j][0];
+                        else if(fix == -1)
+                            hasilS += " +" + sol[j][0];
+                    }
+                    if (sol[j][1] != null && !sol[j][1].equals("")){
+                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        if (fix > 0 && fix != 1)
+                            hasilS += " -" +fix+"*("+sol[j][1]+ ")";
+                        else if(fix == 1)
+                            hasilS += " -" + "("+sol[j][1]+ ")";
+                        else if(fix < 0 && fix != -1)
+                            hasilS += " +" +fix+"*("+sol[j][1]+ ")";
+                        else if(fix == -1)
+                            hasilS += " +" + "("+sol[j][1]+ ")";
 
-        System.out.println();
-        System.out.print("Simpan Hasil SPL?(y/n) ");
-        char simpan = scanner.next().charAt(0);
-        String namaFile;
-
-        if (simpan == 'y') {
-            System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = scanner.next();
-            saveSPLToFile(copyMat, line, namaFile);
+                    }
+                }
+                sol[idx][0] = Float.toString(hasilF);
+                sol[idx][1] = hasilS;
+            }
+            
+            String line = "";
+            for (int i = 0; i < M-1; i++) {
+                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+                line += eq + "\n";
+                System.out.println(eq);
+            }
+            
+            System.out.println();
+            System.out.print("Simpan Hasil SPL?(y/n) ");
+            char simpan = scanner.next().charAt(0);
+            String namaFile;
+            
+            if (simpan == 'y') {
+                System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+                namaFile = scanner.next();
+                saveSPLToFile(copyMat, line, namaFile);
+            }
         }
     }
     public static void gaussJordanSolver(){
@@ -129,63 +152,87 @@ public class solver{
         String[][] sol = new String[M-1][2];
         for (int i = 0; i < M-1; i++) sol[i][0] = String.valueOf(parametric[i]);
         matriks.eliminasiGaussJordan();
-        for (int i = N-1; i >= 0; i--){
-            float hasilF = matriks.Mat[i][M-1];
-            String hasilS ="";
-            int idx = 0;
-            //mencari element bukan 0 pertama pada baris
-            while (matriks.isZero(i, idx) && idx < M-2) idx++;
-            for (int j = idx + 1; j < M-1; j++){
-                try{
-                    float x = matriks.Mat[i][j] * Float.parseFloat(sol[j][0]);
-                    hasilF -= x;
-                } catch (Exception e){
-                    float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
-                    if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+ "*" + sol[j][0];
-                    else if(fix == 1)
-                        hasilS += " -" + sol[j][0];
-                    else if(fix < 0 && fix != -1)
-                        hasilS += " +" +fix+"*" + sol[j][0];
-                    else if(fix == -1)
-                        hasilS += " +" + sol[j][0];
-                }
-                if (sol[j][1] != null && !sol[j][1].equals("")){
-                    float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
-                    if (fix > 0 && fix != 1)
-                        hasilS += " -" +fix+"*("+sol[j][1]+ ")";
-                    else if(fix == 1)
-                        hasilS += " -" + "("+sol[j][1]+ ")";
-                    else if(fix < 0 && fix != -1)
-                        hasilS += " +" +fix+"*("+sol[j][1]+ ")";
-                    else if(fix == -1)
-                        hasilS += " +" + "("+sol[j][1]+ ")";
-
-                }
+        boolean checker = true;
+        int l = 0;
+        while (l < M - 1 && checker) {
+            if (matriks.Mat[N-1][l] == 0) l++;
+            else checker = false;
+        }
+        if (checker && matriks.Mat[N-1][M-1] != 0)
+        {
+            System.out.println("Persamaan tidak memiliki solusi real.");
+            System.out.println();
+            System.out.print("Simpan Hasil SPL?(y/n) ");
+            char simpan = scanner.next().charAt(0);
+            String namaFile;
+            
+            if (simpan == 'y') {
+                System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+                namaFile = scanner.next();
+                saveSPLToFile(copyMat, "Persamaan tidak memiliki solusi real.", namaFile);
             }
-            sol[idx][0] = Float.toString(hasilF);
-            sol[idx][1] = hasilS;
-        }
+        } 
+        else {
 
-        String line = "";
-        for (int i = 0; i < M-1; i++) {
-            String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
-            line +=  eq + "\n";
-            System.out.println(eq);
-        }
-
-        System.out.println();
-        System.out.print("Simpan Hasil SPL?(y/n) ");
-        char simpan = scanner.next().charAt(0);
-        String namaFile;
-
-        if (simpan == 'y') {
-            System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
-            namaFile = scanner.next();
-            saveSPLToFile(copyMat, line, namaFile);
+            for (int i = N-1; i >= 0; i--){
+                float hasilF = matriks.Mat[i][M-1];
+                String hasilS ="";
+                int idx = 0;
+                //mencari element bukan 0 pertama pada baris
+                while (matriks.isZero(i, idx) && idx < M-2) idx++;
+                for (int j = idx + 1; j < M-1; j++){
+                    try{
+                        float x = matriks.Mat[i][j] * Float.parseFloat(sol[j][0]);
+                        hasilF -= x;
+                    } catch (Exception e){
+                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        if (fix > 0 && fix != 1)
+                            hasilS += " -" +fix+ "*" + sol[j][0];
+                            else if(fix == 1)
+                            hasilS += " -" + sol[j][0];
+                            else if(fix < 0 && fix != -1)
+                            hasilS += " +" +fix+"*" + sol[j][0];
+                            else if(fix == -1)
+                            hasilS += " +" + sol[j][0];
+                    }
+                    if (sol[j][1] != null && !sol[j][1].equals("")){
+                        float fix = Utils.fixFloatingPoint(matriks.Mat[i][j]);
+                        if (fix > 0 && fix != 1)
+                        hasilS += " -" +fix+"*("+sol[j][1]+ ")";
+                        else if(fix == 1)
+                            hasilS += " -" + "("+sol[j][1]+ ")";
+                            else if(fix < 0 && fix != -1)
+                            hasilS += " +" +fix+"*("+sol[j][1]+ ")";
+                            else if(fix == -1)
+                            hasilS += " +" + "("+sol[j][1]+ ")";
+                            
+                        }
+                }
+                sol[idx][0] = Float.toString(hasilF);
+                sol[idx][1] = hasilS;
+            }
+            
+            String line = "";
+            for (int i = 0; i < M-1; i++) {
+                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0)  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+                line +=  eq + "\n";
+                System.out.println(eq);
+            }
+            
+            System.out.println();
+            System.out.print("Simpan Hasil SPL?(y/n) ");
+            char simpan = scanner.next().charAt(0);
+            String namaFile;
+            
+            if (simpan == 'y') {
+                System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
+                namaFile = scanner.next();
+                saveSPLToFile(copyMat, line, namaFile);
+            }
+            
         }
     }
-    public static void inversSolver(){
+        public static void inversSolver(){
         Scanner scanner = new Scanner(System.in);
         int type = Utils.inputData();
         matriks matriks = new matriks();
