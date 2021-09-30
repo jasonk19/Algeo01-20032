@@ -236,13 +236,13 @@ public class matriks {
         this.NeffK = M;
     }
 
-    public void getCofactor(matriks temp, int p, int q, int n) {
+    public void getCofactor(matriks mat, matriks temp, int p, int q, int n) {
         int i = 0;
         int j = 0;
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
                 if (row != p && col != q) {
-                    temp.Mat[i][j++] = this.Mat[row][col];
+                    temp.Mat[i][j++] = mat.Mat[row][col];
                     if (j == n - 1) {
                         j = 0;
                         i++;
@@ -255,17 +255,18 @@ public class matriks {
     public float determinantRecc(matriks mat, int currentRow) {
         float det = 0;
 
-        if (currentRow == 2) {
-            return mat.Mat[0][0] * mat.Mat[1][1] - mat.Mat[1][0] * mat.Mat[0][1];
+        if (currentRow == 1) {
+            return mat.Mat[0][0];
         }
 
         matriks temp = new matriks();
-        temp.NeffB = currentRow - 1;
-        temp.NeffK = currentRow - 1;
+        temp.NeffB = currentRow;
+        temp.NeffK = currentRow;
 
         for (int i = 0; i < currentRow; i++) {
-            this.getCofactor(temp, 0, i, currentRow);
+            this.getCofactor(mat, temp, 0, i, currentRow);
             det += Math.pow(-1, i) * mat.Mat[0][i] * determinantRecc(temp, currentRow - 1);
+            System.out.println(det);
         }
         return det;
     }
@@ -281,7 +282,7 @@ public class matriks {
 
         for (int i=0; i < this.NeffB; i++) {
             for (int j=0; j < this.NeffK; j++) {
-                this.getCofactor(temp, i, j, this.NeffB);
+                this.getCofactor(this, temp, i, j, this.NeffB);
                 newMat.Mat[i][j] = (float) (Math.pow(-1, i + j) * temp.determinantRecc(temp, temp.NeffB));
             }
         }
