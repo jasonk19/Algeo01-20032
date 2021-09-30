@@ -119,7 +119,7 @@ public class Main {
     }
 
     private static void ExitMenu() {
-        System.out.println("Terimasih sudah menggunakan aplikasi kami!");
+        System.out.println("Terimakasih sudah menggunakan aplikasi kami!");
         scanner.close();
         System.exit(0);
     }

@@ -361,9 +361,9 @@ public class solver{
         int i, count;
         System.out.print("Masukkan banyaknya nilai x yang ingin ditaksir: ");
         count = scanner.nextInt();
-        Float[] y = new Float[count];
-        float x;
-        Float[] bilX = new Float[count];
+        double[] y = new double[count];
+        double x;
+        double[] bilX = new double[count];
 
         System.out.println("Masukkan nilai x yang akan ditaksir: ");
         for (i = 0; i < count; i++) {

@@ -266,7 +266,6 @@ public class matriks {
         for (int i = 0; i < currentRow; i++) {
             this.getCofactor(mat, temp, 0, i, currentRow);
             det += Math.pow(-1, i) * mat.Mat[0][i] * determinantRecc(temp, currentRow - 1);
-            System.out.println(det);
         }
         return det;
     }
