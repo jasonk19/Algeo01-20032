@@ -1,3 +1,6 @@
 src/*.class
 src/driveMatriks.java
 out
+src/lib/matriks/*.class
+src/lib/solver/*.class
+src/lib/Utils/*.class

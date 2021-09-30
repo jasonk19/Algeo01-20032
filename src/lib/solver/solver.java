@@ -354,7 +354,9 @@ public class solver{
 
         // Input titik interpolasi dan ubah ke Matriks Augmented
         interpolasi.convertToMatAug(titik);
-        interpolasi.displayInterpolasi(titik);
+        System.out.println("Persamaan Interpolasi yang terbentuk");
+        interpolasi.displayPolinomInterpolasi(titik);
+        System.out.println();
         // Input x taksiran
         int i, count;
         System.out.print("Masukkan banyaknya nilai x yang ingin ditaksir: ");
@@ -370,20 +372,7 @@ public class solver{
             y[i] = interpolasi.interpolasiPolinom(titik, x);
         }
         System.out.println();
-        System.out.println("Hasil interpolasi dari nilai: ");
-        for (i = 0; i < count; i++) {
-            System.out.print(i+1);
-            System.out.print(". x = ");
-            System.out.println(bilX[i]);
-        }
-        System.out.println("adalah: ");
-        for (i = 0; i < count; i++) {
-            System.out.print(i+1);
-            System.out.print(". f(");
-            System.out.print(bilX[i]);
-            System.out.print(") = ");
-            System.out.println(y[i]);
-        }
+        interpolasi.displayInterpolasi(titik, count, bilX, y);
         System.out.println();
         System.out.print("Simpan Hasil Interpolasi?(y/n) ");
         char simpan = scanner.next().charAt(0);
