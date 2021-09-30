@@ -1,7 +1,5 @@
 package lib.matriks;
 
-import lib.Utils.Utils;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,7 +34,7 @@ public class matriks {
         int idx = 0;
         while (this.Mat[N][idx] == 0 && idx < M) {
             idx++;
-        };
+        }
         return idx;
 
     }
@@ -146,7 +144,7 @@ public class matriks {
             while (this.Mat[i][j] == 0 && j < M) j++;
             index0baris[i] = j;
         }
-        ;
+
         for (int i = 0; i < N - 1; i++) {
             // Find the minimum element in unsorted array
             int min_idx = i;

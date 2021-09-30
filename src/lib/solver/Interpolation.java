@@ -89,7 +89,7 @@ public class Interpolation {
     String line;
 
     try {
-      String newFileDir = namaFile;
+      String newFileDir = "../hasil/" + namaFile;
       FileWriter writeInterpolasi = new FileWriter(newFileDir);
 
       int i,j;

@@ -12,7 +12,7 @@ public class Inversion {
         String line = "";
 
         try {
-            String newFileDir = "./hasil/" + namaFile;
+            String newFileDir = "../hasil/" + namaFile;
             FileWriter writeDeterm = new FileWriter(newFileDir);
 
             String dataMatrix = "Matriks awal: \n";

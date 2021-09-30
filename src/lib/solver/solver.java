@@ -2,7 +2,7 @@ package lib.solver;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 import lib.matriks.matriks;
 import lib.Utils.*;
@@ -14,7 +14,7 @@ public class solver{
         String line = "";
 
         try {
-            String newFileDir = "./hasil/" + namaFile;
+            String newFileDir = "../hasil/" + namaFile;
             FileWriter writeDeterm = new FileWriter(newFileDir);
 
             String dataMatrix = "SPL dalam bentuk matriks: \n";
@@ -116,7 +116,7 @@ public class solver{
             
             String line = "";
             for (int i = 0; i < M-1; i++) {
-                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0 && sol[i][1] != null && sol[i][1] != "" )  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0 && sol[i][1] != null && !Objects.equals(sol[i][1], ""))  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
                 line += eq + "\n";
                 System.out.println(eq);
             }
@@ -214,7 +214,7 @@ public class solver{
             
             String line = "";
             for (int i = 0; i < M-1; i++) {
-                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0 && sol[i][1] != null && sol[i][1] != "" )  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
+                String eq = "x"+(i+1) + " = " + ((Utils.isNumber(sol[i][0]) && Float.parseFloat(sol[i][0]) == 0 && sol[i][1] != null && !Objects.equals(sol[i][1], ""))  ? "" : sol[i][0]) + (sol[i][1] == null ? "" : sol[i][1]);
                 line +=  eq + "\n";
                 System.out.println(eq);
             }

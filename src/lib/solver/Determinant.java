@@ -12,7 +12,7 @@ public class Determinant {
         String line = "";
 
         try {
-            String newFileDir = "./hasil/" + namaFile;
+            String newFileDir = "../hasil/" + namaFile;
             FileWriter writeDeterm = new FileWriter(newFileDir);
 
             String dataMatrix = "Data matriks: \n";

@@ -12,7 +12,7 @@ public class Regression {
         String line = null;
 
         try {
-            String newFileDir = "./hasil/" + namaFile;
+            String newFileDir = "../hasil/" + namaFile;
             FileWriter writeRegresi = new FileWriter(newFileDir);
 
             String dataRegresi = "Data Regresi: \n";
