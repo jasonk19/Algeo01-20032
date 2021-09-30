@@ -2,6 +2,7 @@ package lib.solver;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 import lib.matriks.matriks;
 
@@ -56,165 +57,39 @@ public class Interpolation {
         } else if (j == titik.NeffK-1) {
           titik.Mat[i][j] = (float) y[i];
         } else {
-          titik.Mat[i][j] = (float) Math.pow((double) x[i], (double) j);
+          titik.Mat[i][j] = (float) Math.pow(x[i], j);
         }
       }
     }
-    // titik.displayMatriks();
     System.out.println();
   }
 
-  void displayInterpolasi(matriks titik, int count, double[] bilX, double[] y) {
-    int i,j;
-
-    double[] sol = getHasilGauss(titik);
-
-    System.out.println("Hasil interpolasi dari nilai: ");
-    for (i = 0; i < count; i++) {
-        System.out.print("x = ");
-        System.out.println(bilX[i]);
+  void displayInterpolasi(int count, double[] bilX, double[] y) {
+    System.out.println("Hasil interpolasi: ");
+    for (int i = 0; i < count; i++) {
+      System.out.println("f(" + bilX[i] + ") = " + y[i]);
     }
-    System.out.println("adalah: ");
-    for (i = 0; i < count; i++) {
-      System.out.print("f(");
-      System.out.print(bilX[i]);
-      System.out.print(") = ");
-      for (j = 0; j < titik.NeffB; j++) {
-        if (j == 0) {
-          System.out.print(sol[j]);
-          System.out.print(" + ");
-        } else if (j == titik.NeffB - 1) {
-          if (sol[j] >= 0) {
-            System.out.print(sol[j]);
-            System.out.print("(");
-            System.out.print(bilX[i]);
-            System.out.print(")");
-            if (j == 1) {
-              System.out.print("");
-            } else {
-              System.out.print("^");
-              System.out.print(j);
-            }
-            System.out.print(" = ");
-            System.out.print(y[i]);
-          } else {
-            System.out.print("(");
-            System.out.print(sol[j]);
-            System.out.print(")");
-            System.out.print("(");
-            System.out.print(bilX[i]);
-            System.out.print(")");
-            if (j == 1) {
-              System.out.print("");
-            } else {
-              System.out.print("^");
-              System.out.print(j);
-            }
-            System.out.print(" = ");
-            System.out.print(y[i]);
-          }
-        } else {
-          if (sol[j] >= 0) {
-            System.out.print(sol[j]);
-            System.out.print("(");
-            System.out.print(bilX[i]);
-            System.out.print(")");
-            if (j == 1) {
-              System.out.print("");
-            } else {
-              System.out.print("^");
-              System.out.print(j);
-            }
-            System.out.print(" + ");
-          } else {
-            System.out.print("(");
-            System.out.print(sol[j]);
-            System.out.print(")");
-            System.out.print("(");
-            System.out.print(bilX[i]);
-            System.out.print(")");
-            if (j == 1) {
-              System.out.print("");
-            } else {
-              System.out.print("^");
-              System.out.print(j);
-            }
-            System.out.print(" + ");
-          }
-        }
-      }
-      System.out.println();
-    }
-
-    System.out.println();
   }
 
-  void displayPolinomInterpolasi(matriks titik) {
-    titik.eliminasiGauss();
-    double[] sol = getHasilGauss(titik);
-
-    int i;
+  void displayPolinomInterpolasi(double[] data) {
     System.out.print("f(x) = ");
-    for (i = 0; i < titik.NeffB; i++) {
+    for (int i = 0; i < data.length; i++) {
       if (i == 0) {
-        System.out.print(sol[i]);
-        System.out.print(" + ");
-      } else if (i == titik.NeffB-1) {
-        if (sol[i] >= 0) {
-          System.out.print(sol[i]);
-          System.out.print("x");
-          if (i == 1) {
-            System.out.print("");
-          } else {
-            System.out.print("^");
-            System.out.print(i);
-          }
-        } else {
-          System.out.print("(");
-          System.out.print(sol[i]);
-          System.out.print(")");
-          System.out.print("x");
-          if (i == 1) {
-            System.out.print("");
-          } else {
-            System.out.print("^");
-            System.out.print(i);
-          }
-        }
+        System.out.print(data[i] + " + ");
+      } else if (i == data.length - 1) {
+        System.out.print("(" + data[i] + ")" + "x^" + i);
       } else {
-        if (sol[i] >= 0) {
-          System.out.print(sol[i]);
-          System.out.print("x");
-          if (i == 1) {
-            System.out.print("");
-          } else {
-            System.out.print("^");
-            System.out.print(i);
-          }
-        } else {
-          System.out.print("(");
-          System.out.print(sol[i]);
-          System.out.print(")");
-          System.out.print("x");
-          if (i == 1) {
-            System.out.print("");
-          } else {
-            System.out.print("^");
-            System.out.print(i);
-          }
-        }
-        
-        System.out.print(" + ");
+        System.out.print("(" + data[i] + ")" + "x^" + i + " + ");
       }
     }
     System.out.println();
   }
 
-  void displayInterpolasiToFile(matriks titik, int count, double[] bilX, double[] y, String namaFile) {
+  void displayInterpolasiToFile(matriks titik, double[] solve, int count, double[] bilX, double[] y, String namaFile) {
     String line;
 
     try {
-      String newFileDir = "./hasil/" + namaFile;
+      String newFileDir = namaFile;
       FileWriter writeInterpolasi = new FileWriter(newFileDir);
 
       int i,j;
@@ -249,64 +124,19 @@ public class Interpolation {
       }
 
       String persamaanPolinom = "\nPersamaan Polinom: \n";
-      titik.eliminasiGauss();
-      double[] sol = getHasilGauss(titik);
       persamaanPolinom += "f(x) = ";
-      for (i = 0; i < titik.NeffB; i++) {
+      for (i = 0; i < solve.length; i++) {
         if (i == 0) {
-          persamaanPolinom += Double.toString(sol[i]);
-          persamaanPolinom += " + ";
-        } else if (i == titik.NeffB-1) {
-          if (sol[i] >= 0) {
-            persamaanPolinom += Double.toString(sol[i]);
-            persamaanPolinom += "x";
-            if (i == 1) {
-              persamaanPolinom += "";
-            } else {
-              persamaanPolinom += "^";
-              persamaanPolinom += Integer.toString(i);
-            }
-          } else {
-            persamaanPolinom += "(";
-            persamaanPolinom += Double.toString(sol[i]);
-            persamaanPolinom += ")";
-            persamaanPolinom += "x";
-            if (i == 1) {
-              persamaanPolinom += "";
-            } else {
-              persamaanPolinom += "^";
-              persamaanPolinom += Integer.toString(i);
-            }
-          }
+          persamaanPolinom += solve[i] + " + ";
+        } else if (i == solve.length - 1) {
+          persamaanPolinom += "(" + solve[i] + ")" + "x^" + i;
         } else {
-          if (sol[i] >= 0) {
-            persamaanPolinom += Double.toString(sol[i]);
-            persamaanPolinom += "x";
-            if (i == 1) {
-              persamaanPolinom += "";
-            } else {
-              persamaanPolinom += "^";
-              persamaanPolinom += Integer.toString(i);
-            }
-          } else {
-            persamaanPolinom += "(";
-            persamaanPolinom += Double.toString(sol[i]);
-            persamaanPolinom += ")";
-            persamaanPolinom += "x";
-            if (i == 1) {
-              persamaanPolinom += "";
-            } else {
-              persamaanPolinom += "^";
-              persamaanPolinom += Integer.toString(i);
-            }
-          }
-          
-          persamaanPolinom += " + ";
+          persamaanPolinom += "(" + solve[i] + ")" + "x^" + i + " + ";
         }
       }
-      
+      persamaanPolinom += "\n";
 
-      line = persamaanLanjar + persamaanPolinom + "\n\nHasil interpolasi dari nilai: \n";
+      line = persamaanLanjar + persamaanPolinom + "\nHasil interpolasi dari nilai: \n";
       for (i = 0; i < count; i++) {
         line += (i+1) + ". x = " + bilX[i] + "\n";
       }
@@ -343,18 +173,30 @@ public class Interpolation {
     return sol;
   }
 
-  double interpolasiPolinom(matriks titik, double x) {
+  double[] getGaussSolve(matriks titik) {
     titik.eliminasiGauss();
-    double[] solusi = getHasilGauss(titik);
-    
-    int i;
-    double hasilInterpolasi = 0;
-    for (i = 0; i < titik.NeffB; i++) {
-      if (i == 0) {
-        hasilInterpolasi += solusi[i];
+    double[] sol = new double[titik.NeffB];
+    int i,j;
+    for (i = titik.NeffB-1; i >= 0; i--) {
+      if (i == titik.NeffB-1) {
+        sol[i] = titik.Mat[i][titik.NeffK-1];
       } else {
-        hasilInterpolasi += solusi[i] * Math.pow(x, i);
+        double tempA = 0;
+        for (j = 0; j < titik.NeffK-1; j++) {
+          if (titik.Mat[i][j] != 0 || titik.Mat[i][j] != 1) {
+            tempA += titik.Mat[i][j] * sol[j];
+          }
+        }
+        sol[i] = titik.Mat[i][titik.NeffK-1] - tempA;
       }
+    }
+    return sol;
+  }
+
+  double interpolasiPolinom(double[] titik, double x) {
+    double hasilInterpolasi = 0;
+    for (int i = 0; i < titik.length; i++) {
+      hasilInterpolasi += titik[i] * Math.pow(x, i);
     }
 
     return hasilInterpolasi;

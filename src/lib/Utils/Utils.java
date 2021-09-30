@@ -56,6 +56,18 @@ public class Utils {
         return Integer.parseInt(input);
     }
 
+    public static int inputDataSPL() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Masukkan jumlah peubah x: ");
+        String input = scanner.next();
+        while (invalidChoice(input, 99)) {
+            System.out.println("Masukkan jumlah yang benar");
+            System.out.print("Masukkan jumlah baris dan kolom: ");
+            input = scanner.next();
+        }
+        return Integer.parseInt(input);
+    }
+
     public static int[] inputDataRegression() {
         Scanner scanner = new Scanner(System.in);
         int[] colNRow = {0, 0};

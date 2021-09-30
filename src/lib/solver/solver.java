@@ -42,8 +42,8 @@ public class solver{
         matriks matriks = new matriks();
         
         if (type == 1) {
-            int rowNCol = Utils.inputBarisNKolom();
-            matriks.readMatriks(rowNCol, rowNCol);
+            int peubah = Utils.inputDataSPL();
+            matriks.readMatriks(peubah, peubah + 1);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
         }
@@ -139,8 +139,8 @@ public class solver{
         matriks matriks = new matriks();
         
         if (type == 1) {
-            int rowNCol = Utils.inputBarisNKolom();
-            matriks.readMatriks(rowNCol, rowNCol);
+            int peubah = Utils.inputDataSPL();
+            matriks.readMatriks(peubah, peubah + 1);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
         }
@@ -237,8 +237,8 @@ public class solver{
         matriks matriks = new matriks();
         
         if (type == 1) {
-            int rowNCol = Utils.inputBarisNKolom();
-            matriks.readMatriks(rowNCol, rowNCol);
+            int peubah = Utils.inputDataSPL();
+            matriks.readMatriks(peubah, peubah + 1);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
         }
@@ -288,8 +288,8 @@ public class solver{
         matriks matriks = new matriks();
         
         if (type == 1) {
-            int rowNCol = Utils.inputBarisNKolom();
-            matriks.readMatriks(rowNCol, rowNCol);
+            int peubah = Utils.inputDataSPL();
+            matriks.readMatriks(peubah, peubah + 1);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
         }
@@ -354,9 +354,15 @@ public class solver{
 
         // Input titik interpolasi dan ubah ke Matriks Augmented
         interpolasi.convertToMatAug(titik);
-        System.out.println("Persamaan Interpolasi yang terbentuk");
-        interpolasi.displayPolinomInterpolasi(titik);
+        matriks copyMat = new matriks();
+        copyMat.copyMatriksToThis(titik);
+        titik.eliminasiGauss();
+        double[] test = interpolasi.getGaussSolve(titik);
+
+        System.out.println("Persamaan Interpolasi yang terbentuk: ");
+        interpolasi.displayPolinomInterpolasi(test);
         System.out.println();
+
         // Input x taksiran
         int i, count;
         System.out.print("Masukkan banyaknya nilai x yang ingin ditaksir: ");
@@ -369,10 +375,11 @@ public class solver{
         for (i = 0; i < count; i++) {
             x = interpolasi.readxTaksiran();
             bilX[i] = x;
-            y[i] = interpolasi.interpolasiPolinom(titik, x);
+            y[i] = interpolasi.interpolasiPolinom(test, x);
         }
+
         System.out.println();
-        interpolasi.displayInterpolasi(titik, count, bilX, y);
+        interpolasi.displayInterpolasi(count, bilX, y);
         System.out.println();
         System.out.print("Simpan Hasil Interpolasi?(y/n) ");
         char simpan = scanner.next().charAt(0);
@@ -381,7 +388,7 @@ public class solver{
         if (simpan == 'y') {
             System.out.print("Masukkan nama file untuk disimpan <namafile.txt>: ");
             namaFile = scanner.next();
-            interpolasi.displayInterpolasiToFile(titik, count, bilX, y, namaFile);
+            interpolasi.displayInterpolasiToFile(copyMat, test, count, bilX, y, namaFile);
         }
     }
 }
