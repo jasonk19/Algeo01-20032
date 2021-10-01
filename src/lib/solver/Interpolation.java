@@ -153,25 +153,6 @@ public class Interpolation {
     }
   }
 
-  double[] getHasilGauss(matriks titik) {
-    double[] sol = new double[titik.NeffB];
-    int i,j;
-    for (i = titik.NeffB-1; i >= 0; i--) {
-      if (i == titik.NeffB-1) {
-        sol[i] = titik.Mat[i][titik.NeffK-1];
-      } else {
-        double tempA = 0;
-        for (j = 0; j < titik.NeffK-1; j++) {
-          if (titik.Mat[i][j] != 0 || titik.Mat[i][j] != 1) {
-            tempA += titik.Mat[i][j] * sol[j];
-          }
-        }
-        sol[i] = titik.Mat[i][titik.NeffK-1] - tempA;
-      }
-    }
-
-    return sol;
-  }
 
   double[] getGaussSolve(matriks titik) {
     titik.eliminasiGauss();
