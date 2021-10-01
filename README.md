@@ -46,9 +46,9 @@ Program ini memiliki fungsionalitas khusus untuk mengolah matriks yaitu:
    ```
 5. Untuk OS Windows, langkah nomor 3 bisa diganti dengan menjalankan batch file dengan klik atau run dari terminal:
 ```sh 
-  .\runWithInternalLib.bat
+  .\runWithInternalLib
    ```
 6. Untuk OS Windows, langkah nomor 4 bisa diganti dengan menjalankan batch file dengan klik atau run dari terminal:
 ```sh 
-  .\runWithExternalJAR.bat
+  .\runWithExternalJAR
    ```

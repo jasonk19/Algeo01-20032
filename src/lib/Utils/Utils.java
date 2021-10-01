@@ -22,7 +22,7 @@ public class Utils {
         Arrays.stream(menu).forEachOrdered(System.out::println);
         System.out.println("================================================");
         System.out.println();
-        System.out.print("YOUR LIFE CHOICE: ");
+        System.out.print("Pilihan: ");
 
         String choice = scanner.next();
 

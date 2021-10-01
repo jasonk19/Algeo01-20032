@@ -31,12 +31,12 @@ public class Regression {
             }
 
             line = dataRegresi + "\nPersamaan hasil regresi: ";
-            line += "y = " + hasil.Mat[0][hasil.NeffK-1] + " + ";
+            line += "y = " + "(" + hasil.Mat[0][hasil.NeffK-1] + ")" + " + ";
             for (int i = 1; i < hasil.NeffB; i++) {
                 if (i == hasil.NeffB-1) {
-                    line += hasil.Mat[i][hasil.NeffK-1] + "x" + i;
+                    line += "(" + hasil.Mat[i][hasil.NeffK-1] + ")" + "x" + i;
                 } else {
-                    line += hasil.Mat[i][hasil.NeffK-1] + "x" + i + " + ";
+                    line += "(" + hasil.Mat[i][hasil.NeffK-1] + ")" + "x" + i + " + ";
                 }
             }
 
@@ -105,6 +105,17 @@ public class Regression {
         float taksiran = regMatrix.Mat[0][regMatrix.NeffK-1];
         for (int i=1; i < regMatrix.NeffK - 1; i++) {
             taksiran += regMatrix.Mat[i][regMatrix.NeffK-1] * peubah[i-1];
+        }
+
+        System.out.println();
+        System.out.println("Persamaan hasil regresi: ");
+        System.out.print("y = " + "(" + regMatrix.Mat[0][regMatrix.NeffK-1] + ")" + " + ");
+        for (int i = 1; i < regMatrix.NeffB; i++) {
+            if (i == regMatrix.NeffB-1) {
+                System.out.print("(" + regMatrix.Mat[i][regMatrix.NeffK-1] + ")" + "x" + i);
+            } else {
+                System.out.print("("+ regMatrix.Mat[i][regMatrix.NeffK-1] + ")" + "x" + i + " + ");
+            }
         }
 
         System.out.println();
