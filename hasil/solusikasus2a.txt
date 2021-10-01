@@ -1,0 +1,11 @@
+SPL dalam bentuk matriks: 
+1.0 | -1.0 | 2.0 | -1.0 | -1.0 | 
+2.0 | 1.0 | -2.0 | -2.0 | -2.0 | 
+-1.0 | 2.0 | -4.0 | 1.0 | 1.0 | 
+3.0 | 0.0 | 0.0 | -3.0 | -3.0 | 
+
+Hasil sistem persamaan linear adalah
+x1 = -1.0 +s
+x2 =  +2.0*r
+x3 = r
+x4 = s

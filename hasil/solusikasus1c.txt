@@ -1,0 +1,12 @@
+SPL dalam bentuk matriks: 
+0.0 | 1.0 | 0.0 | 0.0 | 1.0 | 0.0 | 2.0 | 
+0.0 | 0.0 | 0.0 | 1.0 | 1.0 | 0.0 | -1.0 | 
+0.0 | 1.0 | 0.0 | 0.0 | 0.0 | 1.0 | 1.0 | 
+
+Hasil sistem persamaan linear adalah
+x1 = p
+x2 = 1.0 -u
+x3 = r
+x4 = -2.0 -u
+x5 = 1.0 +u
+x6 = u
