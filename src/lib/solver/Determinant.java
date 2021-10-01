@@ -44,7 +44,7 @@ public class Determinant {
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
-            if (matriks.NeffB != matriks.NeffK-1) {
+            if (matriks.NeffB != matriks.NeffK) {
                 System.out.println("Matriks tidak berbentuk persegi, determinan tidak ada!");
                 return;
             }
@@ -83,7 +83,7 @@ public class Determinant {
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
-            if (matriks.NeffB != matriks.NeffK-1) {
+            if (matriks.NeffB != matriks.NeffK) {
                 System.out.println("Matriks tidak berbentuk persegi, determinan tidak ada!");
                 return;
             }
