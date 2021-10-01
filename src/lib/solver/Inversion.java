@@ -50,7 +50,7 @@ public class Inversion {
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
-            if (matriks.NeffB != matriks.NeffK) {
+            if (matriks.NeffB != matriks.NeffK-1) {
                 System.out.println("Matriks tidak berbentuk persegi, tidak mempunyai invers");
                 return;
             }
@@ -85,7 +85,7 @@ public class Inversion {
             matriks.readMatriks(rowNCol, rowNCol);
         } else if (type == 2) {
             matriks.readMatriks(Utils.inputDariFile());
-            if (matriks.NeffB != matriks.NeffK) {
+            if (matriks.NeffB != matriks.NeffK-1) {
                 System.out.println("Matriks tidak berbentuk persegi, tidak mempunyai invers");
                 return;
             }
